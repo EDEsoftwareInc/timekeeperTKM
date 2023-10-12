@@ -17,6 +17,21 @@
             style="cursor: pointer; width: 152px; height: 36px"
           />
         </q-toolbar-title>
+        <q-btn class="q-mr-md" round flat>
+          <q-avatar
+            text-color="white"
+            style="background-color: #3baacf !important"
+          >
+            {{ user.user.firstName.charAt(0) + user.user.lastName.charAt(0) }}
+          </q-avatar>
+          <q-menu>
+            <q-card class="flat no-shadow" style="width: 200px; height: 100px">
+              <div class="row justify-center q-pt-xl">
+                <q-btn @click="logout()" color="primary" label="Logout" />
+              </div>
+            </q-card>
+          </q-menu>
+        </q-btn>
       </q-toolbar>
     </q-header>
 
@@ -63,12 +78,24 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, computed } from "vue";
+import { useQuasar } from "quasar";
 
 export default {
   setup() {
+    const $q = useQuasar();
+
+    const user = computed(() => {
+      return $q.localStorage.getItem("user");
+    });
+    function logout() {
+      $q.localStorage.remove("user");
+      window.location.reload();
+    }
     return {
       drawer: ref(false),
+      user,
+      logout,
     };
   },
 };
