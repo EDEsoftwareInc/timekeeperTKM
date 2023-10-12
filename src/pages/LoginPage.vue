@@ -81,7 +81,11 @@
 
 <script setup>
 import { useQuasar } from "quasar";
-import { ref } from "vue";
+import { ref, getCurrentInstance } from "vue";
+import login_success from "../provider/login_success.json";
+import login_failed from "../provider/login_failed.json";
+
+const app = getCurrentInstance().appContext.config.globalProperties;
 
 const $q = useQuasar();
 
@@ -101,14 +105,47 @@ const togglePasswordVisibility = () => {
   showPassword.value = !showPassword.value;
 };
 
-const onSubmit = () => {
+const onSubmit = async () => {
   if (
     email.value === "edquiban.erick@gmail.com" &&
     password.value === "mmddyyyy"
   ) {
+    const login_success_data = await login_success;
+    const data = {
+      login_success_data,
+      user: {
+        email: email.value,
+        firstName: "Erick",
+        lastName: "Edquiban",
+        companyLogo: "../assets/logo.png",
+      },
+      banner: {
+        imgUrl: "~assets/employee+benefits 1.png",
+        title:
+          "We prioritize our employees' health by offering competitive medical insurance plans, ensuring that you and your family receive top-notch care.",
+        discreption: "Test Desc",
+      },
+    };
     console.log("success");
+    try {
+      $q.localStorage.set("user", data);
+      console.log("User data saved to local storage");
+      app.$router.push({
+        path: "/dashboard",
+      });
+    } catch (error) {
+      console.error("Error saving user data to local storage:", error);
+      // Handle the error (e.g., show an error message to the user)
+    }
   } else {
-    console.log("wrong pass");
+    const login_failed_data = await login_failed;
+    $q.notify({
+      color: "red-5",
+      textColor: "white",
+      icon: "warning",
+      position: "top",
+      message: login_failed_data.message,
+    });
   }
 };
 
