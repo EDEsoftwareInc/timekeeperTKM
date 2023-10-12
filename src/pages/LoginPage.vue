@@ -9,7 +9,7 @@
         />
         <div style="margin-left: 100px" class="row">
           <div class="col-10">
-            <h3 readonly>Login</h3>
+            <p readonly>Login</p>
             <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
               <span class="text-weight-medium">Email</span>
               <q-input
@@ -53,7 +53,7 @@
                 v-model="shape"
                 val="xs"
                 label="Keep me logged in"
-                style="margin-top: -5px; color: #545563"
+                class="check-box"
               />
               <q-card-actions
                 style="margin-top: 100px"
@@ -68,6 +68,7 @@
                   type="submit"
                   flat
                   color="primary - color"
+                  class="btn-forgot-password"
                 />
               </q-card-actions>
             </q-form>
@@ -157,6 +158,7 @@ const onReset = () => {
 </script>
 
 <style scoped>
+/* Default styles for smaller screens */
 .with-background-image {
   background-image: url("../assets/bg.png");
   background-size: cover;
@@ -164,8 +166,20 @@ const onReset = () => {
   background-position: center center;
   height: 100vh; /* 100% of viewport height */
 }
+
+/* Media query for larger screens */
+@media (min-width: 1200px) {
+  .with-background-image {
+    background-image: url("../assets/bg.png"); /* Replace with a larger image */
+    background-size: cover;
+  }
+}
 span {
   color: #545563;
+  font-family: "Nunito";
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 16px;
 }
 .login-btn {
   background-color: #004e89;
@@ -173,11 +187,35 @@ span {
   width: 350px;
   height: 50px;
   border-radius: 8px;
+  font-family: "Nunito";
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 20px;
 }
-h3 {
-  color: #545563;
+p {
+  color: #2b2b43;
+  font-family: "Nunito";
+  font-size: 35px;
+  margin-top: 100px;
+  margin-bottom: 25px;
+  font-weight: 400;
+  line-height: 82px;
+  letter-spacing: 0.1px;
 }
 input {
   color: #545563;
+  font-family: "Nunito";
+  margin-bottom: 15px;
+}
+.check-box {
+  margin-top: -5px;
+  color: #545563;
+  font-family: "Nunito";
+}
+.btn-forgot-password {
+  color: 3e75A1;
+  font-family: "Nunito";
+  font-weight: bold;
+  font-size: 18px;
 }
 </style>
