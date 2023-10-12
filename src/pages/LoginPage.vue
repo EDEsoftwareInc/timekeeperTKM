@@ -1,4 +1,3 @@
-@@ -0,0 +1,146 @@
 <template>
   <div>
     <div class="row page-container">
