@@ -28,13 +28,12 @@
         </div>
       </div>
     </div>
-    <div class="row justify-center q-mt-lg">
+    <div class="row justify-center q-mt-lg q-mb-xl">
       <Carousel />
     </div>
-    <div class="row q-mt-xl">
-      <div class="col-1"></div>
-      <div class="col-11">
-        <p class="weekly-sched">Weekly Schedule</p>
+    <div class="row items-center add-marginTop">
+      <div class="col-9">
+        <p class="weekly-sched q-ml-xl q-mb-none">Current Week Schedule</p>
         <div class="row justify-between items-center">
           <div class="day-initials row">
             <div
@@ -49,16 +48,49 @@
               {{ initial }}
             </div>
           </div>
-          <div class="col-4">
-            <q-btn
-              unelevated
-              size="md"
-              class="btn-color-text q-px-md"
-              icon="schedule"
-              rounded
-              label="Show Schedule"
-              style="background: #094267 !important; text-transform: initial"
-            />
+        </div>
+      </div>
+      <div class="col-3">
+        <q-btn
+          unelevated
+          class="btn-color-text q-px-md q-ml-lg"
+          rounded
+          label="Show Schedule"
+          style="background: #094267 !important; text-transform: initial"
+        />
+      </div>
+    </div>
+    <div class="row marginLeftRightTop">
+      <div class="col-4">
+        <div class="grey-card">
+          <q-icon size="xl">
+            <q-img src="../assets/time-outline.svg" />
+          </q-icon>
+          <div class="text-timerMargin">
+            <div class="text-timer">Latest Punch-Out</div>
+            <div class="timer">08h 00m 00s</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="grey-card">
+          <q-icon size="xl">
+            <q-img src="../assets/timer-outline.svg" />
+          </q-icon>
+          <div class="text-timerMargin">
+            <div class="text-timer">Total Time Session</div>
+            <div class="timer">102h 38m 01s</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="grey-card">
+          <q-icon size="xl">
+            <q-img src="../assets/Vector.svg" />
+          </q-icon>
+          <div class="text-timerMargin">
+            <div class="text-timer">PTO Balance</div>
+            <div class="timer">50h 00m 00s</div>
           </div>
         </div>
       </div>
@@ -92,8 +124,6 @@ export default {
     const initials = days.map((day) => day.charAt(0));
 
     const reorderedInitials = [...initials.slice(1), initials[0]];
-
-    console.log("reorderedInitials", reorderedInitials);
 
     const updateGreeting = () => {
       const currentHour = new Date().getHours();
@@ -181,7 +211,7 @@ export default {
 .weekly-sched {
   color: #000;
   font-family: Nunito;
-  font-size: 15px;
+  font-size: 24px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
@@ -192,13 +222,14 @@ export default {
   flex-direction: row; /* Display as a row */
   justify-content: space-between;
   width: 100%;
-  max-width: 150px; /* Adjust the width as needed */
+  max-width: 250px;
+  margin-left: 60px;
 }
 
 .day-initial {
   color: #000;
   font-family: Nunito;
-  font-size: 15px;
+  font-size: 22px;
   font-style: normal;
   font-weight: 800;
   line-height: normal;
@@ -213,10 +244,51 @@ export default {
 }
 .btn-color-text {
   color: var(--labels-primary, #fff);
+  text-align: center;
   font-family: Nunito;
-  font-size: 12px;
+  font-size: 20px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+  width: 225px;
+}
+.add-marginTop {
+  margin-top: 90px;
+}
+.grey-card {
+  border-radius: 15px;
+  background: #d9d9d9;
+  width: 100%;
+  max-width: 333px;
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.marginLeftRightTop {
+  margin-left: 75px;
+  margin-right: 75px;
+  margin-top: 75px;
+}
+.text-timer {
+  color: #000;
+  font-family: Nunito;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+.timer {
+  color: #000;
+  font-family: Nunito;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+.text-timerMargin {
+  margin-left: 18px;
 }
 </style>

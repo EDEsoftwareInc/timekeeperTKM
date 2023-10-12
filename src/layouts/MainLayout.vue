@@ -79,10 +79,9 @@ export default {
   border-radius: 0 32px 32px 0;
 }
 .verti-line {
-  border-right: 1px solid #0f0f0f;
-  /* border: 2px solid #fafafa; */
-  /* background: var(--labels-primary, #fff);
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); */
+  border: 2px solid #fafafa;
+  background: var(--labels-primary, #fff);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
 .q-item.q-router-link--active,
