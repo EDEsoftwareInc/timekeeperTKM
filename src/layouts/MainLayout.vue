@@ -1,7 +1,7 @@
 <template>
   <q-layout view="hHh Lpr lff" class="shadow-2">
     <q-header elevated style="background-color: #004e89">
-      <q-toolbar class="q-ma-xs">
+      <q-toolbar class="q-ma-sm">
         <q-btn
           v-if="$q.screen.lt.md || $q.screen.lt.sm"
           flat
@@ -10,10 +10,10 @@
           dense
           icon="menu"
         />
-        <q-toolbar-title class="q-ml-md q-mr-md">
+        <q-toolbar-title class="q-mr-md">
           <q-img
             clickable
-            src="../assets/logo.svg"
+            src="../assets/tkm-logo.svg"
             style="cursor: pointer; width: 152px; height: 36px"
           />
         </q-toolbar-title>

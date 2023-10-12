@@ -5,15 +5,15 @@
     animated
     navigation
     padding
-    height="300px"
+    height="400px"
     class="bg-white text-black rounded-borders shadow-3"
-    style="width: 1060px"
+    style="width: 1100px; padding: 0 !important"
   >
     <q-carousel-slide name="style" class="row items-center">
       <div class="col-6">
-        <q-img src="~assets/employee-benefits.png" />
+        <q-img src="~assets/employee+benefits 1.png" />
       </div>
-      <div class="col-6">
+      <div class="col-6 text-layout">
         <p class="right-text-carousel">{{ lorem }}</p>
       </div>
     </q-carousel-slide>
@@ -53,9 +53,15 @@ export default {
 } */
 .q-carousel__control.q-carousel__navigation.no-wrap.absolute.flex.q-carousel__navigation--buttons.q-carousel__navigation--bottom {
   border-radius: 50px;
-  background: var(--materials-ultrathin, rgba(37, 37, 37, 0.55));
-  width: 100px;
-  margin: 0 auto;
+  background: #d9d9d9;
+  width: 134px;
+  height: 28px;
+  left: 765px;
+  align-items: center;
+}
+
+i.q-icon.notranslate.material-icons {
+  font-size: 10px;
 }
 
 .q-carousel__navigation-inner.flex.flex-center.no-wrap {
@@ -68,10 +74,16 @@ export default {
   color: #000;
   text-align: center;
   font-family: Nunito;
-  font-size: 20px;
+  font-size: 25px;
   font-style: normal;
   font-weight: 500;
-  line-height: 30px;
+  line-height: 30px; /* 120% */
   letter-spacing: 0.1px;
+  width: 100%;
+  max-width: 533px;
+  margin-inline: auto;
+}
+.q-carousel__slide.row.items-center {
+  padding: 0;
 }
 </style>

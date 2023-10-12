@@ -1,9 +1,8 @@
 <template>
   <q-page>
     <div class="row">
-      <div class="col-8"></div>
-      <div class="col-4">
-        <div class="q-mt-sm text-greeting">{{ greeting }}</div>
+      <div class="col-12">
+        <div class="q-mt-lg text-greeting q-ml-xl">{{ greeting }}</div>
       </div>
     </div>
     <div class="row">
@@ -154,6 +153,13 @@ export default {
 </script>
 
 <style>
+.date-formatted {
+  font-family: Nunito;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+}
 .text-greeting {
   color: #000;
   font-family: Nunito;
@@ -167,6 +173,7 @@ export default {
   background: #d9d9d9;
   width: 100%;
   max-width: 355px;
+  height: 40px;
 }
 .colored-day {
   color: #004e89;
