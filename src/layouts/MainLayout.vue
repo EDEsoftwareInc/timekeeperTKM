@@ -30,7 +30,7 @@
               </q-icon>
             </q-item-section>
 
-            <q-item-section> Dashboard </q-item-section>
+            <q-item-section class="text-font"> Dashboard </q-item-section>
           </q-item>
 
           <q-item clickable v-ripple>
@@ -40,7 +40,7 @@
               </q-icon>
             </q-item-section>
 
-            <q-item-section> Pay </q-item-section>
+            <q-item-section class="text-font"> Pay </q-item-section>
           </q-item>
 
           <q-item clickable v-ripple>
@@ -50,7 +50,7 @@
               </q-icon>
             </q-item-section>
 
-            <q-item-section> Time Management </q-item-section>
+            <q-item-section class="text-font"> Time Management </q-item-section>
           </q-item>
         </q-list>
       </q-scroll-area>
@@ -84,4 +84,30 @@ export default {
   /* background: var(--labels-primary, #fff);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); */
 }
+
+.q-item.q-router-link--active,
+.q-item--active {
+  color: #004e89;
+  font-family: Nunito;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+.q-item {
+  color: #000;
+  font-family: Nunito;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+/* .q-item.active {
+  color: #004e89;
+  font-family: Nunito;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+} */
 </style>
