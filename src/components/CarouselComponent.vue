@@ -11,7 +11,7 @@
   >
     <q-carousel-slide name="style" class="row items-center">
       <div class="col-6">
-        <q-img src="~assets/employee-benefits 1.png" />
+        <q-img src="~assets/employee-benefits1.png" />
       </div>
       <div class="col-6 text-layout">
         <p class="right-text-carousel">{{ lorem }}</p>

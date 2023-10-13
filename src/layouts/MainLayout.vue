@@ -26,8 +26,18 @@
           </q-avatar>
           <q-menu>
             <q-card class="flat no-shadow" style="width: 200px; height: 100px">
-              <div class="row justify-center q-pt-xl">
-                <q-btn @click="logout()" color="primary" label="Logout" />
+              <div class="row justify-center q-pt-sm">
+                <q-btn
+                  @click="logout()"
+                  icon="settings"
+                  label="Manage Account"
+                />
+                <q-btn
+                  @click="logout()"
+                  icon="logout"
+                  label="Sign-Out"
+                  class="q-mt-sm"
+                />
               </div>
             </q-card>
           </q-menu>
@@ -38,35 +48,62 @@
     <q-drawer v-model="drawer" show-if-above :width="250" :breakpoint="500">
       <q-scroll-area class="fit verti-line">
         <q-list padding class="menu-list">
-          <q-item active clickable v-ripple>
-            <q-item-section avatar>
-              <q-icon size="md">
-                <q-img src="../assets/bar-chart-outline.svg" />
-              </q-icon>
-            </q-item-section>
+          <router-link
+            style="text-decoration: none"
+            to="/dashboard"
+            active-class="active"
+          >
+            <q-item active clickable v-ripple>
+              <q-item-section avatar>
+                <q-icon size="md">
+                  <q-img src="../assets/bar-chart-outline.svg" />
+                </q-icon>
+              </q-item-section>
 
-            <q-item-section class="text-font"> Dashboard </q-item-section>
-          </q-item>
+              <q-item-section class="text-font nav-title">
+                Dashboard
+              </q-item-section>
+            </q-item>
+          </router-link>
 
-          <q-item clickable v-ripple>
-            <q-item-section avatar>
-              <q-icon size="md">
-                <q-img src="../assets/card-outline.svg" />
-              </q-icon>
-            </q-item-section>
+          <router-link
+            style="text-decoration: none"
+            to="/pay"
+            active-class="active"
+          >
+            <q-item clickable v-ripple>
+              <q-item-section avatar>
+                <q-icon size="md">
+                  <q-img src="../assets/card-outline.svg" />
+                </q-icon>
+              </q-item-section>
 
-            <q-item-section class="text-font"> Pay </q-item-section>
-          </q-item>
-
+              <q-item-section class="text-font"> Pay </q-item-section>
+            </q-item>
+          </router-link>
           <q-item clickable v-ripple>
             <q-item-section avatar>
               <q-icon class="text-dark" size="md">
                 <q-img src="../assets/timer-outline.svg" />
               </q-icon>
             </q-item-section>
-
-            <q-item-section class="text-font"> Time Management </q-item-section>
+            <q-item-section class="text-font" @click="toggleSubList">
+              Time Management
+            </q-item-section>
           </q-item>
+          <q-list
+            align="center"
+            v-if="showSubList"
+            padding
+            class="sub-list q-mr-lg"
+          >
+            <q-item clickable v-ripple to="/punch-in-out" active-class="active">
+              <q-item-section> Punch In/Out</q-item-section>
+            </q-item>
+            <q-item clickable v-ripple to="/schedule" active-class="active">
+              <q-item-section> Schedule </q-item-section>
+            </q-item>
+          </q-list>
         </q-list>
       </q-scroll-area>
     </q-drawer>
@@ -84,7 +121,7 @@ import { useQuasar } from "quasar";
 export default {
   setup() {
     const $q = useQuasar();
-
+    const showSubList = ref(false);
     const user = computed(() => {
       return $q.localStorage.getItem("user");
     });
@@ -92,10 +129,16 @@ export default {
       $q.localStorage.remove("user");
       window.location.reload();
     }
+    const toggleSubList = () => {
+      console.log("TEST");
+      showSubList.value = !showSubList.value;
+    };
     return {
       drawer: ref(false),
       user,
       logout,
+      showSubList,
+      toggleSubList,
     };
   },
 };
@@ -128,12 +171,14 @@ export default {
   font-weight: 700;
   line-height: normal;
 }
-/* .q-item.active {
-  color: #004e89;
-  font-family: Nunito;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-} */
+/* Add this CSS to remove the underline */
+router-link {
+  text-decoration: none !important;
+}
+.nav-title {
+  text-decoration: none !important;
+}
+.sub-list {
+  margin-left: 40px; /* Adjust the indentation as needed */
+}
 </style>

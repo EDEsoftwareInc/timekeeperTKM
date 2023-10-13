@@ -3,7 +3,7 @@
     <div class="row page-container">
       <div class="col-5 q-pa-sm">
         <img
-          src="../assets/logo.png"
+          src="~assets/logo.png"
           style="widt: 225px; height: 59px"
           class="q-ma-sm"
         />
@@ -118,7 +118,7 @@ const onSubmit = async () => {
         email: email.value,
         firstName: "Erick",
         lastName: "Edquiban",
-        companyLogo: "../assets/logo.png",
+        companyLogo: "~assets/logo.png",
       },
       banner: {
         imgUrl: "~assets/employee+benefits 1.png",
@@ -127,10 +127,8 @@ const onSubmit = async () => {
         discreption: "Test Desc",
       },
     };
-    console.log("success");
     try {
       $q.localStorage.set("user", data);
-      console.log("User data saved to local storage");
       app.$router.push({
         path: "/dashboard",
       });
@@ -168,9 +166,9 @@ const onReset = () => {
 }
 
 /* Media query for larger screens */
-@media (min-width: 1200px) {
+@media (min-width: 1750px) {
   .with-background-image {
-    background-image: url("../assets/bg.png"); /* Replace with a larger image */
+    background-image: url("../assets/larger-bg.png"); /* Replace with a larger image */
     background-size: cover;
   }
 }
