@@ -45,7 +45,13 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="drawer" show-if-above :width="250" :breakpoint="500">
+    <q-drawer
+      class="custom-drawer"
+      v-model="drawer"
+      show-if-above
+      :width="250"
+      :breakpoint="500"
+    >
       <q-scroll-area class="fit verti-line">
         <q-list padding class="menu-list">
           <router-link
@@ -106,6 +112,7 @@
           </q-list>
         </q-list>
       </q-scroll-area>
+      <q-img src="../assets/dashboad-buttom-logo.png" class="drawer-logo" />
     </q-drawer>
 
     <q-page-container>
@@ -180,5 +187,20 @@ router-link {
 }
 .sub-list {
   margin-left: 40px; /* Adjust the indentation as needed */
+}
+.custom-drawer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+
+.drawer-logo {
+  position: absolute;
+  bottom: -30px; /* Adjust as necessary */
+  transform: translateX(-50%);
+  max-height: 133px;
+  left: 10%;
+  max-width: 133px;
 }
 </style>

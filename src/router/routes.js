@@ -7,6 +7,14 @@ const routes = [
         path: "dashboard",
         component: () => import("pages/DashboardPage.vue"),
       },
+      {
+        path: "punch-in-out",
+        component: () => import("pages/PunchInOut.vue"),
+      },
+      {
+        path: "schedule",
+        component: () => import("src/pages/SchedulePage.vue"),
+      },
     ],
     meta: { requiresAuth: true },
   },
