@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="row page-container">
+    <div v-if="!$q.screen.sm" class="row page-container">
       <div class="col-5 q-pa-sm">
         <img
           src="~assets/logo.png"
@@ -77,6 +77,86 @@
       </div>
       <div class="col-7 with-background-image"></div>
     </div>
+
+    <div v-if="$q.screen.sm" class="page-container bg-fullwidth">
+      <img
+        src="~assets/logo.png"
+        style="width: 225px; height: 59px"
+        class="q-ma-sm"
+      />
+      <div class="row">
+        <div class="col-6 q-px-xl">
+          <p readonly>Login</p>
+          <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
+            <span class="text-weight-medium">Email</span>
+            <q-input
+              v-model="email"
+              placeholder="name@example.com"
+              outlined
+              type="email"
+              lazy-rules
+              standout
+              :rules="[
+                (val) =>
+                  (val !== null && val !== '') ||
+                  isValidEmail(val) ||
+                  'Please input a valid email address',
+              ]"
+            />
+
+            <span class="text-weight-medium" style="margin-top: 5px"
+              >Password</span
+            >
+            <q-input
+              v-model="password"
+              outlined
+              :type="showPassword ? 'text' : 'password'"
+              placeholder="min. 8 characters"
+              lazy-rules
+              :rules="[
+                (val) =>
+                  (val !== null && val !== '') || 'Please type your password',
+              ]"
+            >
+              <template v-slot:append>
+                <q-icon
+                  @click="togglePasswordVisibility"
+                  :name="showPassword ? 'visibility_off' : 'visibility'"
+                />
+              </template>
+            </q-input>
+            <q-checkbox
+              size="xs"
+              v-model="shape"
+              val="xs"
+              label="Keep me logged in"
+              class="check-box"
+            />
+            <q-card-actions
+              style="margin-top: 100px"
+              vertical
+              align="center"
+              class="q-mt-lg"
+            >
+              <q-btn
+                class="login-btn-tablet"
+                no-caps
+                label="Login"
+                type="submit"
+              />
+              <q-btn
+                no-caps
+                label="Forgot password"
+                type="submit"
+                flat
+                color="primary - color"
+                class="btn-forgot-password"
+              />
+            </q-card-actions>
+          </q-form>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -89,6 +169,7 @@ import login_failed from "../provider/login_failed.json";
 const app = getCurrentInstance().appContext.config.globalProperties;
 
 const $q = useQuasar();
+console.log($q.screen.sm);
 
 const email = ref(null);
 const password = ref(null);
@@ -190,6 +271,17 @@ span {
   font-size: 18px;
   line-height: 20px;
 }
+.login-btn-tablet {
+  background-color: #004e89;
+  color: white;
+  width: 299px;
+  height: 50px;
+  border-radius: 8px;
+  font-family: "Nunito";
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 20px;
+}
 p {
   color: #2b2b43;
   font-family: "Nunito";
@@ -215,5 +307,13 @@ input {
   font-family: "Nunito";
   font-weight: bold;
   font-size: 18px;
+}
+
+.bg-fullwidth {
+  background-image: url("../assets/bg-fullwidth.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 100vh; /* 100% of viewport height */
 }
 </style>

@@ -6,14 +6,14 @@
     navigation
     padding
     height="400px"
-    class="bg-white text-black rounded-borders shadow-3"
-    style="width: 1100px; padding: 0 !important"
+    class="bg-white text-black rounded-borders shadow-3 carousel-slide"
+    style="width: 100%; max-width: 1100px; padding: 0 !important"
   >
     <q-carousel-slide name="style" class="row items-center">
-      <div class="col-6">
+      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
         <q-img src="~assets/employee-benefits1.png" />
       </div>
-      <div class="col-6 text-layout">
+      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 text-layout">
         <p class="right-text-carousel">{{ lorem }}</p>
       </div>
     </q-carousel-slide>
@@ -85,5 +85,13 @@ i.q-icon.notranslate.material-icons {
 }
 .q-carousel__slide.row.items-center {
   padding: 0;
+}
+
+/* Media query for tablet and smaller screens */
+@media (max-width: 768px) {
+  .q-carousel__control.q-carousel__navigation.no-wrap.absolute.flex.q-carousel__navigation--buttons.q-carousel__navigation--bottom {
+    left: 50%; /* Center the navigation control */
+    transform: translateX(-50%);
+  }
 }
 </style>
