@@ -1,6 +1,6 @@
 <template>
   <q-page class="body">
-    <div class="row">
+    <div class="row" hidden>
       <div class="col-12">
         <div class="q-mt-lg text-greeting q-ml-lg">{{ greeting }}</div>
       </div>
@@ -24,27 +24,6 @@
           <div class="date-formatted q-ml-sm">
             <span class="colored-day">{{ dayOfWeek }}</span
             >, {{ formattedDate }}
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="custom-calendar q-ma-lg">
-      <div v-for="day in daysInMonth" :key="day" class="calendar-day">
-        <div class="day-label">{{ day }}</div>
-        <div class="work-schedule">
-          <div v-for="schedule in scheduleOfWork" :key="schedule.date">
-            <template
-              v-if="schedule.date === getFormattedDate1(year, month, day)"
-            >
-              <q-chip
-                v-for="(work, index) in schedule.chips"
-                :key="index"
-                :label="work.label"
-                :color="work.color"
-                :text-color="work.textColor"
-                class="q-ma-xs"
-              />
-            </template>
           </div>
         </div>
       </div>

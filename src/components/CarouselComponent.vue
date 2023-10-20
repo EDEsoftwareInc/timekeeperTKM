@@ -135,6 +135,7 @@ i.q-icon.notranslate.material-icons {
     position: relative;
     overflow: hidden;
     height: 400px;
+    font-family: Nunito;
   }
 
   .image-carousel {
@@ -143,6 +144,7 @@ i.q-icon.notranslate.material-icons {
   }
 
   .right-text-carousel {
+    font-family: Nunito;
     position: absolute;
     top: 290px;
     max-width: unset;
