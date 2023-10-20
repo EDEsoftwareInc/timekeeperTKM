@@ -3,13 +3,16 @@
     <q-header elevated style="background-color: #004e89">
       <q-toolbar class="q-ma-sm">
         <q-btn
+          class="burger-btn"
           v-if="$q.screen.lt.md || $q.screen.lt.sm"
           flat
           @click="drawer = !drawer"
           round
           dense
-          icon="menu"
-        />
+          size="md"
+        >
+          <q-icon name="menu" style="font-size: 30px"></q-icon>
+        </q-btn>
         <q-toolbar-title class="q-mr-md">
           <q-img
             clickable
@@ -50,7 +53,7 @@
       v-model="drawer"
       show-if-above
       :width="250"
-      :breakpoint="500"
+      :breakpoint="768"
     >
       <q-scroll-area class="fit verti-line">
         <q-list padding class="menu-list">
@@ -140,8 +143,9 @@ export default {
       console.log("TEST");
       showSubList.value = !showSubList.value;
     };
+    console.log("$", $q.screen);
     return {
-      drawer: ref(false),
+      drawer: ref($q.screen.sm ? false : true),
       user,
       logout,
       showSubList,
@@ -202,5 +206,8 @@ router-link {
   max-height: 133px;
   left: 10%;
   max-width: 133px;
+}
+i.q-icon.notranslate.material-icons {
+  font-size: 30px;
 }
 </style>

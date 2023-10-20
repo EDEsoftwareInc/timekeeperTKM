@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <q-page v-if="!$q.screen.sm">
     <div class="row">
       <div class="col-12">
         <div class="q-mt-lg text-greeting q-ml-xl">{{ greeting }}</div>
@@ -59,7 +59,103 @@
           class="btn-color-text q-px-md q-ml-xl"
           rounded
           label="Show Schedule"
-          style="background: #094267 !important; text-transform: initial"
+        />
+      </div>
+    </div>
+    <div class="row marginLeftRightTop">
+      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <div class="grey-card">
+          <q-icon size="xl">
+            <q-img src="../assets/time-outline.svg" />
+          </q-icon>
+          <div class="text-timerMargin">
+            <div class="text-timer">Latest Punch-Out</div>
+            <div class="timer">08h 00m 00s</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <div class="grey-card">
+          <q-icon size="xl">
+            <q-img src="../assets/timer-outline.svg" />
+          </q-icon>
+          <div class="text-timerMargin">
+            <div class="text-timer">Total Time Session</div>
+            <div class="timer">102h 38m 01s</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <div class="grey-card">
+          <q-icon size="xl">
+            <q-img src="../assets/Vector.svg" />
+          </q-icon>
+          <div class="text-timerMargin">
+            <div class="text-timer">PTO Balance</div>
+            <div class="timer">50h 00m 00s</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </q-page>
+  <q-page v-if="$q.screen.sm">
+    <div class="row items-center">
+      <div class="col-6">
+        <div class="q-mt-lg text-greeting q-ml-lg">{{ greeting }}</div>
+        <div class="name q-ml-lg">
+          {{ user.user.firstName }} {{ user.user.lastName }}
+        </div>
+      </div>
+      <div class="col-xl-8 col-lg-8 col-md-8"></div>
+      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <div class="dateNow row items-center q-mt-sm">
+          <q-icon
+            v-if="greeting === 'Good morning' || greeting === 'Good afternoon'"
+            class="text-dark q-ml-sm"
+            size="sm"
+          >
+            <img src="~assets/sun.svg" />
+          </q-icon>
+          <q-icon
+            v-if="greeting === 'Good evening'"
+            size="sm"
+            name="mdi-weather-night"
+          />
+          <div class="date-formatted q-ml-sm">
+            <span class="colored-day">{{ dayOfWeek }}</span
+            >, {{ formattedDate }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-center q-mt-lg q-mb-xl">
+      <Carousel />
+    </div>
+    <div class="row items-center add-marginTop">
+      <div class="col-xl-9 col-lg-9 col-md-9 col-sm-6 col-xs-12">
+        <p class="weekly-sched q-ml-xl q-mb-none">Current Week Schedule</p>
+        <div class="row justify-between items-center">
+          <div class="day-initials row">
+            <div
+              v-for="(initial, index) in reorderedInitials"
+              :key="index"
+              class="day-initial"
+              :class="{
+                'monday-color': index === 0,
+                'tuesday-color': index === 1,
+              }"
+            >
+              {{ initial }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <q-btn
+          unelevated
+          class="btn-color-text q-px-md q-ml-xl"
+          rounded
+          label="Show Schedule"
         />
       </div>
     </div>
@@ -269,6 +365,8 @@ export default {
   font-weight: 700;
   line-height: normal;
   width: 225px;
+  background: #094267 !important;
+  text-transform: initial;
 }
 .add-marginTop {
   margin-top: 90px;
@@ -308,5 +406,9 @@ export default {
 }
 .text-timerMargin {
   margin-left: 18px;
+}
+
+/* Media query for tablet and smaller screens */
+@media (max-width: 768px) {
 }
 </style>

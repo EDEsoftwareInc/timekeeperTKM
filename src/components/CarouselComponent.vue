@@ -8,6 +8,7 @@
     height="400px"
     class="bg-white text-black rounded-borders shadow-3 carousel-slide"
     style="width: 100%; max-width: 1100px; padding: 0 !important"
+    v-if="!$q.screen.sm"
   >
     <q-carousel-slide name="style" class="row items-center">
       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
@@ -30,13 +31,48 @@
       </div>
     </q-carousel-slide>
   </q-carousel>
+
+  <q-carousel
+    v-model="slide"
+    swipeable
+    animated
+    navigation
+    padding
+    height="400px"
+    class="bg-white text-black rounded-borders shadow-3 carousel-slide"
+    style="width: 100%; padding: 0 !important"
+    v-if="$q.screen.sm"
+  >
+    <q-carousel-slide name="style" class="row items-center">
+      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 carousel-div">
+        <img class="image-carousel" src="~assets/employeebenefits2.png" />
+        <p class="right-text-carousel">
+          {{ lorem }}
+        </p>
+      </div>
+    </q-carousel-slide>
+    <q-carousel-slide name="tv" class="column no-wrap flex-center">
+      <q-icon name="live_tv" size="56px" />
+      <div class="q-mt-md text-center">
+        {{ lorem }}
+      </div>
+    </q-carousel-slide>
+    <q-carousel-slide name="layers" class="column no-wrap flex-center">
+      <q-icon name="layers" size="56px" />
+      <div class="q-mt-md text-center">
+        {{ lorem }}
+      </div>
+    </q-carousel-slide>
+  </q-carousel>
 </template>
 
 <script>
 import { ref } from "vue";
+import { useQuasar } from "quasar";
 
 export default {
   setup() {
+    const $q = useQuasar();
     return {
       slide: ref("style"),
       lorem:
@@ -92,6 +128,27 @@ i.q-icon.notranslate.material-icons {
   .q-carousel__control.q-carousel__navigation.no-wrap.absolute.flex.q-carousel__navigation--buttons.q-carousel__navigation--bottom {
     left: 50%; /* Center the navigation control */
     transform: translateX(-50%);
+    display: none;
+  }
+
+  .carousel-div {
+    position: relative;
+    overflow: hidden;
+    height: 400px;
+  }
+
+  .image-carousel {
+    width: 100%;
+    max-width: 760px;
+  }
+
+  .right-text-carousel {
+    position: absolute;
+    top: 290px;
+    max-width: unset;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px 50px 10px 50px;
+    color: #fff;
   }
 }
 </style>
