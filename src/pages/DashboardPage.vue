@@ -1,6 +1,7 @@
 <template>
   <q-page v-if="!$q.screen.sm">
-    <div class="row">
+    <TodayComponent />
+    <!-- <div class="row">
       <div class="col-12">
         <div class="q-mt-lg text-greeting q-ml-xl">{{ greeting }}</div>
         <div class="name q-ml-xl">
@@ -30,7 +31,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="row justify-center q-mt-lg q-mb-xl">
       <Carousel />
     </div>
@@ -152,7 +153,8 @@
     </div>
   </q-page>
   <q-page v-if="$q.screen.sm">
-    <div class="row items-center">
+    <TodayComponentSM />
+    <!-- <div class="row items-center">
       <div class="col-6">
         <div class="q-mt-lg text-greeting q-ml-lg">{{ greeting }}</div>
         <div class="name q-ml-lg">
@@ -180,7 +182,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="row justify-center q-mt-lg q-mb-xl">
       <Carousel />
     </div>
@@ -314,10 +316,14 @@ import { ref, onMounted, onUnmounted, computed } from "vue";
 import Carousel from "src/components/CarouselComponent.vue";
 import { useQuasar } from "quasar";
 import attendance from "../provider/attendance.json";
+import TodayComponentSM from "src/components/TodayComponentSM.vue";
+import TodayComponent from "src/components/TodayComponent.vue";
 
 export default {
   components: {
     Carousel,
+    TodayComponent,
+    TodayComponentSM,
   },
   setup() {
     const attendanceApi = attendance;

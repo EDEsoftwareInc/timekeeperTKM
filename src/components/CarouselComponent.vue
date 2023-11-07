@@ -10,24 +10,18 @@
     style="width: 100%; max-width: 1100px; padding: 0 !important"
     v-if="!$q.screen.sm"
   >
-    <q-carousel-slide name="style" class="row items-center">
+    <q-carousel-slide
+      name="style"
+      v-for="banner in bannerData"
+      :key="banner.banner_id"
+      class="row items-center"
+    >
       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
-        <q-img src="~assets/employee-benefits1.png" />
+        <q-img :src="banner.banner_image_url" />
       </div>
       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 text-layout">
-        <p class="right-text-carousel">{{ lorem }}</p>
-      </div>
-    </q-carousel-slide>
-    <q-carousel-slide name="tv" class="column no-wrap flex-center">
-      <q-icon name="live_tv" size="56px" />
-      <div class="q-mt-md text-center">
-        {{ lorem }}
-      </div>
-    </q-carousel-slide>
-    <q-carousel-slide name="layers" class="column no-wrap flex-center">
-      <q-icon name="layers" size="56px" />
-      <div class="q-mt-md text-center">
-        {{ lorem }}
+        <!-- <div class="text-h5 right-text-carousel">{{ banner.banner_title }}</div> -->
+        <p class="right-text-carousel">{{ banner.banner_desc }}</p>
       </div>
     </q-carousel-slide>
   </q-carousel>
@@ -43,15 +37,18 @@
     style="width: 100%; padding: 0 !important"
     v-if="$q.screen.sm"
   >
-    <q-carousel-slide name="style" class="row items-center">
+    <q-carousel-slide
+      name="style"
+      class="row items-center"
+      v-for="banner in bannerData"
+      :key="banner.banner_id"
+    >
       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 carousel-div">
-        <img class="image-carousel" src="~assets/employeebenefits2.png" />
-        <p class="right-text-carousel">
-          {{ lorem }}
-        </p>
+        <img class="image-carousel" :src="banner.banner_image_url" />
+        <p class="right-text-carousel">{{ banner.banner_desc }}</p>
       </div>
     </q-carousel-slide>
-    <q-carousel-slide name="tv" class="column no-wrap flex-center">
+    <!-- <q-carousel-slide name="tv" class="column no-wrap flex-center">
       <q-icon name="live_tv" size="56px" />
       <div class="q-mt-md text-center">
         {{ lorem }}
@@ -62,18 +59,45 @@
       <div class="q-mt-md text-center">
         {{ lorem }}
       </div>
-    </q-carousel-slide>
+    </q-carousel-slide> -->
   </q-carousel>
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, getCurrentInstance, onMounted } from "vue";
 import { useQuasar } from "quasar";
 
 export default {
   setup() {
     const $q = useQuasar();
+    const app = getCurrentInstance().appContext.config.globalProperties;
+    const bannerData = ref([]);
+
+    async function banners() {
+      const config = {
+        method: "get",
+        url: "http://54.173.81.133:3001/api/v1/banners",
+      };
+      try {
+        const response = await app.$axios(config);
+        bannerData.value = response.data.map((b) => ({
+          banner_desc: b.banner_description,
+          banner_id: b.banner_id,
+          banner_image_url: b.banner_image_url,
+          banner_title: b.banner_title,
+          created_at: b.created_date,
+        }));
+      } catch (error) {
+        console.error("Error", error);
+      }
+    }
+    onMounted(() => {
+      banners();
+    });
     return {
+      bannerData,
+      banners,
+      app,
       slide: ref("style"),
       lorem:
         "We prioritize our employees' health by offering competitive medical insurance plans, ensuring that you and your family receive top-notch care.",

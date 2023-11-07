@@ -1,6 +1,7 @@
 <template>
-  <q-page class="body">
-    <div class="row" hidden>
+  <q-page v-if="!$q.screen.sm" class="body">
+    <TodayComponent />
+    <!-- <div class="row" hidden>
       <div class="col-12">
         <div class="q-mt-lg text-greeting q-ml-lg">{{ greeting }}</div>
       </div>
@@ -27,15 +28,24 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
+  </q-page>
+  <q-page v-if="$q.screen.sm">
+    <TodayComponentSM />
   </q-page>
 </template>
 
 <script>
 import { ref, onMounted, onUnmounted, computed } from "vue";
 import { useQuasar } from "quasar";
+import TodayComponent from "src/components/TodayComponent.vue";
+import TodayComponentSM from "src/components/TodayComponentSM.vue";
 
 export default {
+  components: {
+    TodayComponent,
+    TodayComponentSM,
+  },
   setup() {
     const greeting = ref("Good morning");
     const formattedDate = ref(getFormattedDate());
