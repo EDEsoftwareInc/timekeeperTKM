@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div v-if="!$q.screen.sm" class="row page-container">
+    <!--Laptop and PC view -->
+
+    <div class="row page-container">
       <div class="col-5 q-pa-sm">
         <img
           src="~assets/logo.png"
@@ -78,14 +80,18 @@
       <div class="col-7 with-background-image"></div>
     </div>
 
-    <div v-if="$q.screen.sm" class="page-container bg-fullwidth">
+    <!-- Mobile and Tablet view -->
+    <div
+      v-if="$q.screen.sm || $q.screen.lt.md || $q.screen.lt.xsm"
+      class="bg-fullwidth"
+    >
       <img
         src="~assets/logo.png"
         style="width: 225px; height: 59px"
         class="q-ma-sm"
       />
-      <div class="row">
-        <div class="col-6 q-px-xl">
+      <div class="row" align="center">
+        <div class="col-12 q-px-xl">
           <p readonly>Login</p>
           <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
             <span class="text-weight-medium">Email</span>
@@ -157,6 +163,7 @@
         </div>
       </div>
     </div>
+    <!-- end of mobile and tablet view -->
   </div>
 </template>
 
@@ -169,12 +176,12 @@ import login_failed from "../provider/login_failed.json";
 const app = getCurrentInstance().appContext.config.globalProperties;
 
 const $q = useQuasar();
-console.log($q.screen.sm);
 
 const email = ref(null);
 const password = ref(null);
 const accept = ref(false);
 const showPassword = ref(false);
+const tkmApi = ref("http://54.173.81.133:3001/api/v1/");
 
 const shape = ref(["line"]);
 const isValidEmail = (email) => {
@@ -188,44 +195,31 @@ const togglePasswordVisibility = () => {
 };
 
 const onSubmit = async () => {
-  if (
-    email.value === "edquiban.erick@gmail.com" &&
-    password.value === "mmddyyyy"
-  ) {
-    const login_success_data = await login_success;
-    const data = {
-      login_success_data,
-      user: {
-        email: email.value,
-        firstName: "Erick",
-        lastName: "Edquiban",
-        companyLogo: "~assets/logo.png",
-      },
-      banner: {
-        imgUrl: "~assets/employee+benefits 1.png",
-        title:
-          "We prioritize our employees' health by offering competitive medical insurance plans, ensuring that you and your family receive top-notch care.",
-        discreption: "Test Desc",
-      },
-    };
-    try {
-      $q.localStorage.set("user", data);
+  try {
+    const response = await app.$axios.post(
+      "http://54.173.81.133:3001/api/v1/users/login",
+      {
+        username: email.value,
+        password: password.value,
+      }
+    );
+    const userData = response.data; // assuming the response contains data
+
+    console.log("DATA", userData);
+
+    // Check if the userData is not null or undefined
+    if (userData !== null && userData !== undefined) {
+      $q.localStorage.set("user", userData);
       app.$router.push({
         path: "/dashboard",
       });
-    } catch (error) {
-      console.error("Error saving user data to local storage:", error);
-      // Handle the error (e.g., show an error message to the user)
+    } else {
+      console.log("userData is null or undefined");
+      // Handle the scenario where userData is null or undefined
     }
-  } else {
-    const login_failed_data = await login_failed;
-    $q.notify({
-      color: "red-5",
-      textColor: "white",
-      icon: "warning",
-      position: "top",
-      message: login_failed_data.message,
-    });
+  } catch (error) {
+    console.error("Error during the request:", error);
+    // Handle the error (e.g., show an error message to the user)
   }
 };
 
@@ -238,6 +232,11 @@ const onReset = () => {
 
 <style scoped>
 /* Default styles for smaller screens */
+@media (max-width: 1000px) {
+  .page-container {
+    display: none;
+  }
+}
 .with-background-image {
   background-image: url("../assets/bg.png");
   background-size: cover;
@@ -310,10 +309,13 @@ input {
 }
 
 .bg-fullwidth {
-  background-image: url("../assets/bg-fullwidth.png");
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  background-image: url("../assets/bg-tablet.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  height: 100vh; /* 100% of viewport height */
+  height: 100vh;
 }
 </style>
