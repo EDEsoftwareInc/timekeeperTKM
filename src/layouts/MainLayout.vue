@@ -25,7 +25,7 @@
             text-color="white"
             style="background-color: #3baacf !important"
           >
-            {{ user.user.firstName.charAt(0) + user.user.lastName.charAt(0) }}
+            <!-- {{ user.user.firstName.charAt(0) + user.user.lastName.charAt(0) }} -->
           </q-avatar>
           <q-menu>
             <q-card class="flat no-shadow" style="width: 200px; height: 100px">

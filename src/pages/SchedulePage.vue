@@ -29,6 +29,55 @@
         </div>
       </div>
     </div> -->
+    <q-card>
+      <q-card-section>
+        <span class="text-h5 shed-text">Schedule</span>
+        <div class="sched-desc">
+          Review upcoming work shifts that you are scheduled for over the next
+          14 day.
+        </div>
+        <label class="date-label q-mt-md">October 01-07</label>
+        <q-card-actions
+          class="shed-card row"
+          v-for="(item, key) in attendance"
+          :key="key"
+        >
+          <div class="day-date-shed q-mr-lg col-3">
+            <q-label class="text-overline text-weight-bold">{{ key }} </q-label
+            ><br />
+            <q-label class="text-weight-medium">{{ item.day }}</q-label>
+          </div>
+
+          <div class="day-date-shed q-ml-lg col-3">
+            <q-label class="text-overline label-sched">In </q-label><br />
+            <q-label class="text-weight-medium"> {{ item.in }}</q-label>
+          </div>
+          <div class="day-date-shed q-ml-lg col-3">
+            <q-label class="text-overline label-sched">Out</q-label><br />
+            <q-label class="text-weight-medium"> {{ item.out }}</q-label>
+          </div>
+
+          <div class="day-date-shed q-ml-lg col-3">
+            <q-label class="text-overline label-sched">Total</q-label><br />
+            <q-label class="text-weight-medium"> 8 hours</q-label>
+          </div>
+
+          <!-- <q-item>In</q-item>
+              <q-item class="text-overline">
+                <br />
+                {{ item.in }}
+              </q-item>
+              <q-item class="text-overline"
+                >Out <br />
+                {{ item.out }}</q-item
+              >
+              <q-item class="text-overline"
+                >Total <br />
+                8 hours</q-item
+              > -->
+        </q-card-actions>
+      </q-card-section>
+    </q-card>
   </q-page>
   <q-page v-if="$q.screen.sm">
     <TodayComponentSM />
@@ -40,6 +89,7 @@ import { ref, onMounted, onUnmounted, computed } from "vue";
 import { useQuasar } from "quasar";
 import TodayComponent from "src/components/TodayComponent.vue";
 import TodayComponentSM from "src/components/TodayComponentSM.vue";
+import attendance from "../provider/attendance.json";
 
 export default {
   components: {
@@ -55,6 +105,7 @@ export default {
     const punch = ref(false);
     const yesterdayIn = ref("8:50 pm");
     const yesterdayOut = ref("6:50 am");
+    const attendanceApi = attendance;
 
     const days = [
       "Sunday",
@@ -129,6 +180,8 @@ export default {
     });
 
     return {
+      attendanceApi,
+      attendance,
       formattedDate,
       greeting,
       dayOfWeek,
@@ -187,13 +240,13 @@ export default {
   font-weight: 700;
   line-height: normal;
 }
-.dateNow {
+/* .dateNow {
   border-radius: 10px;
   background: #d9d9d9;
   width: 100%;
-  max-width: 355px;
+  max-width: 440px;
   height: 40px;
-}
+} */
 
 .name {
   color: #004e89;
@@ -229,5 +282,35 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.shed-card {
+  border-bottom: 0.5px solid #545563;
+  padding: 0px;
+  margin: 0px;
+  font-family: Nunito;
+}
+.day-date-shed {
+  padding: 0px;
+  margin: 0px;
+  font-family: Nunito;
+}
+.label-sched {
+  font-size: 12px;
+  color: #545563;
+  align-self: center;
+  font-family: Nunito;
+}
+.shed-text {
+  font-family: Nunito;
+  font-weight: bold;
+}
+.sche-desc {
+  font-family: Nunito;
+}
+.date-label {
+  font-family: Nunito;
+  font-weight: bold;
+  font-size: medium;
 }
 </style>

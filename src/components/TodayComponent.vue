@@ -3,7 +3,7 @@
     <div class="col-12">
       <div class="q-mt-lg text-greeting q-ml-xl">{{ greeting }}</div>
       <div class="name q-ml-xl">
-        {{ user.user.firstName }} {{ user.user.lastName }}
+        <!-- {{ user.user.firstName }} {{ user.user.lastName }} -->
       </div>
     </div>
   </div>
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { ref, onMounted, onUnmounted, computed } from "vue";
+import { ref, onMounted, onUnmounted, computed, getCurrentInstance } from "vue";
 import { useQuasar } from "quasar";
 
 export default {
@@ -42,6 +42,7 @@ export default {
     const greeting = ref("Good morning");
     const formattedDate = ref(getFormattedDate());
     const dayOfWeek = ref(getDayOfWeek());
+    const app = getCurrentInstance().appContext.config.globalProperties;
 
     const user = computed(() => {
       return $q.localStorage.getItem("user");
@@ -100,8 +101,22 @@ export default {
       updateGreeting();
     }, 1000);
 
+    async function getuserDashboard() {
+      const config = {
+        method: "get",
+        url: "http://54.173.81.133:3001/api/v1/users/dashboard",
+      };
+      try {
+        const response = await app.$axios(config);
+        console.log("response", response);
+      } catch (error) {
+        console.error("Error", error);
+      }
+    }
+
     onMounted(() => {
       updateGreeting();
+      getuserDashboard();
     });
     return {
       formattedDate,
@@ -134,8 +149,9 @@ export default {
   border-radius: 10px;
   background: #d9d9d9;
   width: 100%;
-  max-width: 355px;
+  max-width: 440px;
   height: 40px;
+  flex-wrap: nowrap;
 }
 .date-formatted {
   font-family: Nunito;

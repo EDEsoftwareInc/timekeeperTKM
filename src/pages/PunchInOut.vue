@@ -195,13 +195,13 @@ export default {
   font-weight: 700;
   line-height: normal;
 }
-.dateNow {
+/* .dateNow {
   border-radius: 10px;
   background: #d9d9d9;
   width: 100%;
-  max-width: 355px;
+  max-width: 440px;
   height: 40px;
-}
+} */
 
 .name {
   color: #004e89;

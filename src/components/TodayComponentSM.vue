@@ -3,7 +3,7 @@
     <div class="col-6">
       <div class="q-mt-lg text-greeting q-ml-lg">{{ greeting }}</div>
       <div class="name q-ml-lg">
-        {{ user.user.firstName }} {{ user.user.lastName }}
+        <!-- {{ user.user.firstName }} {{ user.user.lastName }} -->
       </div>
     </div>
     <div class="col-xl-8 col-lg-8 col-md-8"></div>
@@ -133,7 +133,7 @@ export default {
   border-radius: 10px;
   background: #d9d9d9;
   width: 100%;
-  max-width: 355px;
+  /* max-width: 370px; */
   height: 40px;
 }
 .date-formatted {
