@@ -25,7 +25,7 @@
             text-color="white"
             style="background-color: #3baacf !important"
           >
-            <!-- {{ user.user.firstName.charAt(0) + user.user.lastName.charAt(0) }} -->
+            {{ userDashboard.employee_fname + userDashboard.employee_lname }}
           </q-avatar>
           <q-menu>
             <q-card class="flat no-shadow" style="width: 200px; height: 100px">
@@ -125,16 +125,32 @@
 </template>
 
 <script>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted, getCurrentInstance } from "vue";
 import { useQuasar } from "quasar";
 
 export default {
   setup() {
     const $q = useQuasar();
     const showSubList = ref(false);
+    const userDashboard = ref([]);
+    const app = getCurrentInstance().appContext.config.globalProperties;
+
     const user = computed(() => {
       return $q.localStorage.getItem("user");
     });
+    async function getuserDashboard() {
+      const config = {
+        method: "get",
+        url: "http://54.173.81.133:3001/api/v1/users/dashboard",
+      };
+      try {
+        const response = await app.$axios(config);
+        userDashboard.value = response.data;
+      } catch (error) {
+        console.error("Error", error);
+      }
+    }
+
     function logout() {
       $q.localStorage.remove("user");
       window.location.reload();
@@ -143,13 +159,17 @@ export default {
       console.log("TEST");
       showSubList.value = !showSubList.value;
     };
-    console.log("$", $q.screen);
+    onMounted(() => {
+      getuserDashboard();
+    });
     return {
       drawer: ref($q.screen.sm ? false : true),
       user,
       logout,
       showSubList,
       toggleSubList,
+      userDashboard,
+      getuserDashboard,
     };
   },
 };

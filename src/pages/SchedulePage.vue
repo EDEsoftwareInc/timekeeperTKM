@@ -129,7 +129,7 @@ export default {
       return $q.localStorage.getItem("user");
     });
 
-    name.value = user.value.user.firstName + " " + user.value.user.lastName;
+    // name.value = user.value.user.firstName + " " + user.value.user.lastName;
 
     const updateGreeting = () => {
       const currentHour = new Date().getHours();

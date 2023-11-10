@@ -3,7 +3,7 @@
     <div class="col-12">
       <div class="q-mt-lg text-greeting q-ml-xl">{{ greeting }}</div>
       <div class="name q-ml-xl">
-        <!-- {{ user.user.firstName }} {{ user.user.lastName }} -->
+        {{ userDashboard.employee_fname }} {{ userDashboard.employee_lname }}
       </div>
     </div>
   </div>
@@ -43,6 +43,7 @@ export default {
     const formattedDate = ref(getFormattedDate());
     const dayOfWeek = ref(getDayOfWeek());
     const app = getCurrentInstance().appContext.config.globalProperties;
+    const userDashboard = ref([]);
 
     const user = computed(() => {
       return $q.localStorage.getItem("user");
@@ -109,6 +110,7 @@ export default {
       try {
         const response = await app.$axios(config);
         console.log("response", response);
+        userDashboard.value = response.data;
       } catch (error) {
         console.error("Error", error);
       }
@@ -124,6 +126,8 @@ export default {
       dayOfWeek,
       reorderedInitials,
       user,
+      userDashboard,
+      getuserDashboard,
     };
   },
 };
