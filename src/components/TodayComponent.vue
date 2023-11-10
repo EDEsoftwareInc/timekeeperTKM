@@ -1,14 +1,12 @@
 <template>
-  <div class="row">
-    <div class="col-12">
+  <div class="row items-center">
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
       <div class="q-mt-lg text-greeting q-ml-xl">{{ greeting }}</div>
       <div class="name q-ml-xl">
         {{ userDashboard.employee_fname }} {{ userDashboard.employee_lname }}
       </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-xs-12"></div>
+    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-0 col-xs-0"></div>
     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
       <div class="dateNow row items-center q-mt-sm">
         <q-icon
@@ -30,6 +28,29 @@
       </div>
     </div>
   </div>
+  <!-- <div class="row">
+    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-xs-12"></div>
+    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+      <div class="dateNow row items-center q-mt-sm">
+        <q-icon
+          v-if="greeting === 'Good morning' || greeting === 'Good afternoon'"
+          class="text-dark q-ml-sm"
+          size="sm"
+        >
+          <img src="~assets/sun.svg" />
+        </q-icon>
+        <q-icon
+          v-if="greeting === 'Good evening'"
+          size="sm"
+          name="mdi-weather-night"
+        />
+        <div class="date-formatted q-ml-sm">
+          <span class="colored-day">{{ dayOfWeek }}</span
+          >, {{ formattedDate }}
+        </div>
+      </div>
+    </div>
+  </div> -->
 </template>
 
 <script>
