@@ -1,35 +1,48 @@
 <template>
-  <q-page v-if="!$q.screen.sm" class="body">
-    <TodayComponent />
-    <!-- <div class="row" hidden>
-      <div class="col-12">
-        <div class="q-mt-lg text-greeting q-ml-lg">{{ greeting }}</div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-7 q-ml-lg text-h6 name">{{ name }}</div>
-      <div class="col-4">
-        <div class="dateNow row items-center q-mt-sm">
-          <q-icon
-            v-if="greeting === 'Good morning' || greeting === 'Good afternoon'"
-            class="text-dark q-ml-sm"
-            size="sm"
-          >
-            <img src="~assets/sun.svg" />
-          </q-icon>
-          <q-icon
-            v-if="greeting === 'Good evening'"
-            size="sm"
-            name="mdi-weather-night"
-          />
-          <div class="date-formatted q-ml-sm">
-            <span class="colored-day">{{ dayOfWeek }}</span
-            >, {{ formattedDate }}
+  <q-page class="body">
+    <div>
+      <TodayComponent />
+      <q-card class="q-ma-lg">
+        <q-card-section>
+          <span class="text-h5 shed-text">Schedule</span>
+          <div class="sched-desc">
+            Review upcoming work shifts that you are scheduled for over the next
+            14 day.
           </div>
-        </div>
-      </div>
-    </div> -->
-    <q-card>
+          <label class="date-label q-mt-md">October 01-07</label>
+          <q-card-actions
+            class="shed-card row"
+            v-for="(item, key) in attendance"
+            :key="key"
+          >
+            <div class="day-date-shed q-mr-lg col-3">
+              <q-label class="text-overline text-weight-bold"
+                >{{ key }} </q-label
+              ><br />
+              <q-label class="text-weight-medium">{{ item.day }}</q-label>
+            </div>
+
+            <div class="day-date-shed q-ml-lg col-3">
+              <q-label class="text-overline label-sched">In </q-label><br />
+              <q-label class="text-weight-medium"> {{ item.in }}</q-label>
+            </div>
+            <div class="day-date-shed q-ml-lg col-3">
+              <q-label class="text-overline label-sched">Out</q-label><br />
+              <q-label class="text-weight-medium"> {{ item.out }}</q-label>
+            </div>
+
+            <div class="day-date-shed q-ml-lg col-3">
+              <q-label class="text-overline label-sched">Total</q-label><br />
+              <q-label class="text-weight-medium"> 8 hours</q-label>
+            </div>
+          </q-card-actions>
+        </q-card-section>
+      </q-card>
+    </div>
+  </q-page>
+  <q-page v-if="$q.screen.sm">
+    <TodayComponentSM />
+    <q-card class="q-ma-lg">
       <q-card-section>
         <span class="text-h5 shed-text">Schedule</span>
         <div class="sched-desc">
@@ -43,44 +56,26 @@
           :key="key"
         >
           <div class="day-date-shed q-mr-lg col-3">
-            <q-label class="text-overline text-weight-bold">{{ key }} </q-label
-            ><br />
+            <q-label class="key-sm">{{ key }} </q-label><br />
             <q-label class="text-weight-medium">{{ item.day }}</q-label>
           </div>
 
           <div class="day-date-shed q-ml-lg col-3">
             <q-label class="text-overline label-sched">In </q-label><br />
-            <q-label class="text-weight-medium"> {{ item.in }}</q-label>
+            <q-label class="key-sm"> {{ item.in }}</q-label>
           </div>
           <div class="day-date-shed q-ml-lg col-3">
             <q-label class="text-overline label-sched">Out</q-label><br />
-            <q-label class="text-weight-medium"> {{ item.out }}</q-label>
+            <q-label class="key-sm"> {{ item.out }}</q-label>
           </div>
 
           <div class="day-date-shed q-ml-lg col-3">
             <q-label class="text-overline label-sched">Total</q-label><br />
-            <q-label class="text-weight-medium"> 8 hours</q-label>
+            <q-label class="key-sm"> 8 hours</q-label>
           </div>
-
-          <!-- <q-item>In</q-item>
-              <q-item class="text-overline">
-                <br />
-                {{ item.in }}
-              </q-item>
-              <q-item class="text-overline"
-                >Out <br />
-                {{ item.out }}</q-item
-              >
-              <q-item class="text-overline"
-                >Total <br />
-                8 hours</q-item
-              > -->
         </q-card-actions>
       </q-card-section>
     </q-card>
-  </q-page>
-  <q-page v-if="$q.screen.sm">
-    <TodayComponentSM />
   </q-page>
 </template>
 
@@ -312,5 +307,8 @@ export default {
   font-family: Nunito;
   font-weight: bold;
   font-size: medium;
+}
+.key-sm {
+  font-size: 8px;
 }
 </style>
