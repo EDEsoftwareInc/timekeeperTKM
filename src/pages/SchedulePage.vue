@@ -1,5 +1,5 @@
 <template>
-  <q-page class="body">
+  <q-page v-if="!$q.screen.sm" class="body">
     <div>
       <TodayComponent />
       <q-card class="q-ma-lg">

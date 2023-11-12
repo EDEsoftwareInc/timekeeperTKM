@@ -6,7 +6,7 @@
         {{ userDashboard.employee_fname }} {{ userDashboard.employee_lname }}
       </div>
     </div>
-    <div class="col-xl-8 col-lg-8 col-md-8"></div>
+    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-0 col-xs-0"></div>
     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-12">
       <div class="dateNow row items-center q-mt-sm">
         <q-icon
@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { ref, onMounted, onUnmounted, computed } from "vue";
+import { ref, onMounted, onUnmounted, computed, getCurrentInstance } from "vue";
 import { useQuasar } from "quasar";
 
 export default {
@@ -41,6 +41,7 @@ export default {
     const formattedDate = ref(getFormattedDate());
     const dayOfWeek = ref(getDayOfWeek());
     const userDashboard = ref([]);
+    const app = getCurrentInstance().appContext.config.globalProperties;
 
     const user = computed(() => {
       return $q.localStorage.getItem("user");
@@ -115,6 +116,7 @@ export default {
 
     onMounted(() => {
       updateGreeting();
+      getuserDashboard();
     });
     return {
       formattedDate,
@@ -152,6 +154,8 @@ export default {
   width: 100%;
   /* max-width: 370px; */
   height: 40px;
+  inline-size: fit-content;
+  padding-right: 15px;
 }
 .date-formatted {
   font-family: Nunito;

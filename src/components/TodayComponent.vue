@@ -174,9 +174,11 @@ export default {
   border-radius: 10px;
   background: #d9d9d9;
   width: 100%;
-  max-width: 440px;
+  /* max-width: 440px; */
   height: 40px;
   flex-wrap: nowrap;
+  inline-size: fit-content;
+  padding-right: 15px;
 }
 .date-formatted {
   font-family: Nunito;

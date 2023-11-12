@@ -89,7 +89,6 @@
     </div>
     <div v-else-if="$q.screen.sm" class="display-tablet">
       <TodayComponentSM />
-
       <div class="q-ma-lg">
         <q-btn
           v-if="!punch"
@@ -344,9 +343,9 @@ export default {
   width: 50px;
   height: 47px;
 }
-.display-tablet {
+/* .display-tablet {
   width: 659px;
   height: 122px;
   flex-shrink: 0;
-}
+} */
 </style>
