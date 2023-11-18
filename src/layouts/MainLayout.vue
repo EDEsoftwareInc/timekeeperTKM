@@ -156,7 +156,6 @@ export default {
       window.location.reload();
     }
     const toggleSubList = () => {
-      console.log("TEST");
       showSubList.value = !showSubList.value;
     };
     onMounted(() => {

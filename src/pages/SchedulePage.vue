@@ -9,31 +9,31 @@
             Review upcoming work shifts that you are scheduled for over the next
             14 day.
           </div>
-          <label class="date-label q-mt-md">October 01-07</label>
+          <label class="date-label q-mt-md">October 01-05</label>
           <q-card-actions
             class="shed-card row"
-            v-for="(item, key) in attendance"
+            v-for="(item, key) in attendanceApi"
             :key="key"
           >
             <div class="day-date-shed q-mr-lg col-3">
-              <q-label class="text-overline text-weight-bold"
-                >{{ key }} </q-label
+              <label class="text-overline text-weight-bold"
+                >{{ item.date }} </label
               ><br />
-              <q-label class="text-weight-medium">{{ item.day }}</q-label>
+              <label class="text-weight-medium">{{ item.day }}</label>
             </div>
 
             <div class="day-date-shed q-ml-lg col-3">
-              <q-label class="text-overline label-sched">In </q-label><br />
-              <q-label class="text-weight-medium"> {{ item.in }}</q-label>
+              <label class="text-overline label-sched">In </label><br />
+              <label class="text-weight-medium"> {{ item.in }}</label>
             </div>
             <div class="day-date-shed q-ml-lg col-3">
-              <q-label class="text-overline label-sched">Out</q-label><br />
-              <q-label class="text-weight-medium"> {{ item.out }}</q-label>
+              <label class="text-overline label-sched">Out</label><br />
+              <label class="text-weight-medium"> {{ item.out }}</label>
             </div>
 
             <div class="day-date-shed q-ml-lg col-3">
-              <q-label class="text-overline label-sched">Total</q-label><br />
-              <q-label class="text-weight-medium"> 8 hours</q-label>
+              <label class="text-overline label-sched">Total</label><br />
+              <label class="text-weight-medium"> 8 hours</label>
             </div>
           </q-card-actions>
         </q-card-section>
@@ -52,26 +52,26 @@
         <label class="date-label q-mt-md">October 01-07</label>
         <q-card-actions
           class="shed-card row"
-          v-for="(item, key) in attendance"
+          v-for="(item, key) in attendanceApi"
           :key="key"
         >
           <div class="day-date-shed q-mr-lg col-3">
-            <q-label class="key-sm">{{ key }} </q-label><br />
-            <q-label class="text-weight-medium">{{ item.day }}</q-label>
+            <label class="key-sm">{{ item.date }} </label><br />
+            <label class="text-weight-medium">{{ item.day }}</label>
           </div>
 
           <div class="day-date-shed q-ml-lg col-3">
-            <q-label class="text-overline label-sched">In </q-label><br />
-            <q-label class="key-sm"> {{ item.in }}</q-label>
+            <label class="text-overline label-sched">In </label><br />
+            <label class="key-sm"> {{ item.in }}</label>
           </div>
           <div class="day-date-shed q-ml-lg col-3">
-            <q-label class="text-overline label-sched">Out</q-label><br />
-            <q-label class="key-sm"> {{ item.out }}</q-label>
+            <label class="text-overline label-sched">Out</label><br />
+            <label class="key-sm"> {{ item.out }}</label>
           </div>
 
           <div class="day-date-shed q-ml-lg col-3">
-            <q-label class="text-overline label-sched">Total</q-label><br />
-            <q-label class="key-sm"> 8 hours</q-label>
+            <label class="text-overline label-sched">Total</label><br />
+            <label class="key-sm"> 8 hours</label>
           </div>
         </q-card-actions>
       </q-card-section>
@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import { ref, onMounted, onUnmounted, computed } from "vue";
+import { ref, onMounted, onUnmounted, computed, getCurrentInstance } from "vue";
 import { useQuasar } from "quasar";
 import TodayComponent from "src/components/TodayComponent.vue";
 import TodayComponentSM from "src/components/TodayComponentSM.vue";
@@ -100,7 +100,8 @@ export default {
     const punch = ref(false);
     const yesterdayIn = ref("8:50 pm");
     const yesterdayOut = ref("6:50 am");
-    const attendanceApi = attendance;
+    const app = getCurrentInstance().appContext.config.globalProperties;
+    const attendanceApi = ref([]);
 
     const days = [
       "Sunday",
@@ -158,6 +159,21 @@ export default {
       };
       return date.toLocaleString("en-US", options);
     }
+    // Function to convert the data to the desired format
+    async function attendanceApie() {
+      const config = {
+        method: "get",
+        url: "http://54.173.81.133:3001/api/v1/users/schedule",
+      };
+      try {
+        const response = await app.$axios(config);
+        attendanceApi.value = response.data;
+
+        console.log("response shedule api", response);
+      } catch (error) {
+        console.error("Error", error);
+      }
+    }
 
     const intervalId = setInterval(() => {
       formattedDate.value = getFormattedDate();
@@ -168,6 +184,7 @@ export default {
 
     onMounted(() => {
       updateGreeting();
+      attendanceApie();
     });
 
     onUnmounted(() => {
@@ -176,6 +193,7 @@ export default {
 
     return {
       attendanceApi,
+      attendanceApie,
       attendance,
       formattedDate,
       greeting,
@@ -190,27 +208,6 @@ export default {
       year: 2023,
       month: 2,
       daysInMonth: 28, // Replace with the actual number of days in the month
-      scheduleOfWork: [
-        {
-          date: "2023/02/13",
-          chips: [
-            { label: name.value, color: "red", textColor: "white" },
-            { label: name.value, color: "blue", textColor: "white" },
-          ],
-        },
-        {
-          date: "2023/02/15",
-          chips: [{ label: name.value, color: "green", textColor: "white" }],
-        },
-        {
-          date: "2023/02/23",
-          chips: [{ label: name.value, color: "orange", textColor: "black" }],
-        },
-        {
-          date: "2023/02/25",
-          chips: [{ label: name.value, color: "purple", textColor: "white" }],
-        },
-      ],
     };
   },
 };

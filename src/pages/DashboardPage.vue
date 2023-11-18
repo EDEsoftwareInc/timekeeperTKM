@@ -1,37 +1,6 @@
 <template>
   <q-page v-if="!$q.screen.sm">
     <TodayComponent />
-    <!-- <div class="row">
-      <div class="col-12">
-        <div class="q-mt-lg text-greeting q-ml-xl">{{ greeting }}</div>
-        <div class="name q-ml-xl">
-          {{ user.user.firstName }} {{ user.user.lastName }}
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-xs-12"></div>
-      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
-        <div class="dateNow row items-center q-mt-sm">
-          <q-icon
-            v-if="greeting === 'Good morning' || greeting === 'Good afternoon'"
-            class="text-dark q-ml-sm"
-            size="sm"
-          >
-            <img src="~assets/sun.svg" />
-          </q-icon>
-          <q-icon
-            v-if="greeting === 'Good evening'"
-            size="sm"
-            name="mdi-weather-night"
-          />
-          <div class="date-formatted q-ml-sm">
-            <span class="colored-day">{{ dayOfWeek }}</span
-            >, {{ formattedDate }}
-          </div>
-        </div>
-      </div>
-    </div> -->
     <div class="row justify-center q-mt-lg q-mb-xl">
       <Carousel />
     </div>
@@ -65,28 +34,28 @@
             <label class="date-label q-mt-md">October 01-07</label>
             <q-card-actions
               class="shed-card row"
-              v-for="(item, key) in attendance"
+              v-for="(item, key) in attendanceApi"
               :key="key"
             >
               <div class="day-date-shed q-mr-lg col-3">
-                <q-label class="text-overline text-weight-bold"
-                  >{{ key }} </q-label
+                <label class="text-overline text-weight-bold"
+                  >{{ item.date }} </label
                 ><br />
-                <q-label class="text-weight-medium">{{ item.day }}</q-label>
+                <label class="text-weight-medium">{{ item.day }}</label>
               </div>
 
               <div class="day-date-shed q-ml-lg col-3">
-                <q-label class="text-overline label-sched">In </q-label><br />
-                <q-label class="text-weight-medium"> {{ item.in }}</q-label>
+                <label class="text-overline label-sched">In </label><br />
+                <label class="text-weight-medium"> {{ item.in }}</label>
               </div>
               <div class="day-date-shed q-ml-lg col-3">
-                <q-label class="text-overline label-sched">Out</q-label><br />
-                <q-label class="text-weight-medium"> {{ item.out }}</q-label>
+                <label class="text-overline label-sched">Out</label><br />
+                <label class="text-weight-medium"> {{ item.out }}</label>
               </div>
 
               <div class="day-date-shed q-ml-lg col-3">
-                <q-label class="text-overline label-sched">Total</q-label><br />
-                <q-label class="text-weight-medium"> 8 hours</q-label>
+                <label class="text-overline label-sched">Total</label><br />
+                <label class="text-weight-medium"> 8 hours</label>
               </div>
 
               <!-- <q-item>In</q-item>
@@ -218,28 +187,28 @@
             <label class="date-label q-mt-md">October 01-07</label>
             <q-card-actions
               class="shed-card row"
-              v-for="(item, key) in attendance"
+              v-for="(item, key) in attendanceApi"
               :key="key"
             >
               <div class="day-date-shed q-mr-lg col-3">
-                <q-label class="text-overline text-weight-bold"
-                  >{{ key }} </q-label
+                <label class="text-overline text-weight-bold"
+                  >{{ item.date }} </label
                 ><br />
-                <q-label class="text-weight-medium">{{ item.day }}</q-label>
+                <label class="text-weight-medium">{{ item.day }}</label>
               </div>
 
               <div class="day-date-shed q-ml-lg col-3">
-                <q-label class="text-overline label-sched">In </q-label><br />
-                <q-label class="text-weight-medium"> {{ item.in }}</q-label>
+                <label class="text-overline label-sched">In </label><br />
+                <label class="text-weight-medium"> {{ item.in }}</label>
               </div>
               <div class="day-date-shed q-ml-lg col-3">
-                <q-label class="text-overline label-sched">Out</q-label><br />
-                <q-label class="text-weight-medium"> {{ item.out }}</q-label>
+                <label class="text-overline label-sched">Out</label><br />
+                <label class="text-weight-medium"> {{ item.out }}</label>
               </div>
 
               <div class="day-date-shed q-ml-lg col-3">
-                <q-label class="text-overline label-sched">Total</q-label><br />
-                <q-label class="text-weight-medium"> 8 hours</q-label>
+                <label class="text-overline label-sched">Total</label><br />
+                <label class="text-weight-medium"> 8 hours</label>
               </div>
 
               <!-- <q-item>In</q-item>
@@ -312,7 +281,7 @@
 </template>
 
 <script>
-import { ref, onMounted, onUnmounted, computed } from "vue";
+import { ref, onMounted, onUnmounted, computed, getCurrentInstance } from "vue";
 import Carousel from "src/components/CarouselComponent.vue";
 import { useQuasar } from "quasar";
 import attendance from "../provider/attendance.json";
@@ -326,12 +295,13 @@ export default {
     TodayComponentSM,
   },
   setup() {
-    const attendanceApi = attendance;
+    const attendanceApi = ref([]);
     const showShedModel = ref(false);
     const $q = useQuasar();
     const greeting = ref("Good morning");
     const formattedDate = ref(getFormattedDate());
     const dayOfWeek = ref(getDayOfWeek());
+    const app = getCurrentInstance().appContext.config.globalProperties;
 
     const user = computed(() => {
       return $q.localStorage.getItem("user");
@@ -389,7 +359,21 @@ export default {
       dayOfWeek.value = getDayOfWeek();
       updateGreeting();
     }, 1000);
+    // Function to convert the data to the desired format
+    async function attendanceApie() {
+      const config = {
+        method: "get",
+        url: "http://54.173.81.133:3001/api/v1/users/schedule",
+      };
+      try {
+        const response = await app.$axios(config);
+        attendanceApi.value = response.data;
 
+        console.log("response shedule api", response);
+      } catch (error) {
+        console.error("Error", error);
+      }
+    }
     const isSameWeek = (date1, date2) => {
       // Implement the logic to check if two dates fall in the same week
       // You can use date-fns or other date manipulation libraries for this
@@ -398,6 +382,7 @@ export default {
 
     onMounted(() => {
       updateGreeting();
+      attendanceApie();
     });
 
     onUnmounted(() => {
@@ -409,6 +394,7 @@ export default {
       showShedModel,
       attendance,
       attendanceApi,
+      attendanceApie,
       showShed: ref(false),
       greeting,
       dayOfWeek,

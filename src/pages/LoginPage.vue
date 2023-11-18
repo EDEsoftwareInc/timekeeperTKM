@@ -63,7 +63,20 @@
                 align="center"
                 class="q-mt-lg"
               >
-                <q-btn class="login-btn" no-caps label="Login" type="submit" />
+                <q-btn
+                  class="login-btn"
+                  no-caps
+                  label="Login"
+                  type="submit"
+                  :disable="loading"
+                >
+                  <q-spinner-clock
+                    class="q-ml-sm"
+                    size=".5em"
+                    v-if="loading"
+                    color="white"
+                  />
+                </q-btn>
                 <q-btn
                   no-caps
                   label="Forgot password"
@@ -149,7 +162,14 @@
                 no-caps
                 label="Login"
                 type="submit"
-              />
+              >
+                <q-spinner-clock
+                  class="q-ml-sm"
+                  size=".5em"
+                  v-if="loading"
+                  color="white"
+                />
+              </q-btn>
               <q-btn
                 no-caps
                 label="Forgot password"
@@ -176,7 +196,7 @@ import login_failed from "../provider/login_failed.json";
 const app = getCurrentInstance().appContext.config.globalProperties;
 
 const $q = useQuasar();
-
+const loading = ref(false);
 const email = ref(null);
 const password = ref(null);
 const accept = ref(false);
@@ -195,6 +215,7 @@ const togglePasswordVisibility = () => {
 };
 
 const onSubmit = async () => {
+  loading.value = true;
   try {
     const response = await app.$axios.post(
       "http://54.173.81.133:3001/api/v1/users/login",
@@ -210,6 +231,7 @@ const onSubmit = async () => {
     // Check if the userData is not null or undefined
     if (userData !== null && userData !== undefined) {
       $q.localStorage.set("user", userData);
+      loading.value = false;
       app.$router.push({
         path: "/dashboard",
       });

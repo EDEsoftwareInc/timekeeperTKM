@@ -6,17 +6,23 @@
       <div class="q-ma-lg">
         <q-btn
           v-if="!punch"
-          @click="pucnhIn"
+          @click="punchIn()"
           no-caps
           class="btn-punch-in"
-          label="Punch In"
-        />
+          label="Punch-In"
+          :disable="loading"
+        >
+          <q-spinner-clock class="q-ml-sm" v-if="loading" color="white" />
+        </q-btn>
         <q-btn
           v-if="punch"
           @click="pucnhOut()"
           class="btn-punch-out"
-          label="Punch-In"
-        />
+          label="Punch-Out"
+          no-caps
+          :disable="loading"
+        >
+        </q-btn>
       </div>
       <div>
         <q-card class="yesterday q-pa-sm">
@@ -48,17 +54,23 @@
       <div class="q-ma-lg">
         <q-btn
           v-if="!punch"
-          @click="pucnhIn"
+          @click="punchIn()"
           no-caps
-          class="btn-punch-in-tablet"
-          label="Punch In"
-        />
+          class="btn-punch-in"
+          label="Punch-In"
+          :disable="loading"
+        >
+          <q-spinner-clock class="q-ml-sm" v-if="loading" color="white" />
+        </q-btn>
         <q-btn
           v-if="punch"
           @click="pucnhOut()"
           class="btn-punch-out"
-          label="Punch-In"
-        />
+          label="Punch-Out"
+          no-caps
+          :disable="loading"
+        >
+        </q-btn>
       </div>
       <div>
         <q-card class="yesterday-tablet q-pb-lg">
@@ -92,17 +104,23 @@
       <div class="q-ma-lg">
         <q-btn
           v-if="!punch"
-          @click="pucnhIn"
+          @click="punchIn()"
           no-caps
-          class="btn-punch-in-tablet"
-          label="Punch In"
-        />
+          class="btn-punch-in"
+          label="Punch-In"
+          :disable="loading"
+        >
+          <q-spinner-clock class="q-ml-sm" v-if="loading" color="white" />
+        </q-btn>
         <q-btn
           v-if="punch"
           @click="pucnhOut()"
           class="btn-punch-out"
-          label="Punch-In"
-        />
+          label="Punch-Out"
+          no-caps
+          :disable="loading"
+        >
+        </q-btn>
       </div>
       <div>
         <q-card class="yesterday-tablet">
@@ -138,7 +156,7 @@
 </template>
 
 <script>
-import { ref, onMounted, onUnmounted, computed } from "vue";
+import { ref, onMounted, onUnmounted, computed, getCurrentInstance } from "vue";
 import { useQuasar } from "quasar";
 import TodayComponentSM from "src/components/TodayComponentSM.vue";
 import TodayComponent from "src/components/TodayComponent.vue";
@@ -149,6 +167,7 @@ export default {
     TodayComponent,
   },
   setup() {
+    const loading = ref(false);
     const greeting = ref("Good morning");
     const formattedDate = ref(getFormattedDate());
     const dayOfWeek = ref(getDayOfWeek());
@@ -157,6 +176,7 @@ export default {
     const punch = ref(false);
     const yesterdayIn = ref("8:50 pm");
     const yesterdayOut = ref("6:50 am");
+    const app = getCurrentInstance().appContext.config.globalProperties;
 
     const days = [
       "Sunday",
@@ -215,7 +235,27 @@ export default {
       dayOfWeek.value = getDayOfWeek();
       updateGreeting();
     }, 1000);
-    const pucnhIn = () => {};
+    const punchIn = async () => {
+      loading.value = true;
+      const requestData = {
+        date_timestamp: "2023-11-17T05:48:04.843Z",
+      };
+
+      const config = {
+        method: "post",
+        url: "http://54.173.81.133:3001/api/v1/users/attendance",
+        data: requestData,
+      };
+
+      try {
+        const response = await app.$axios(config);
+        console.log("response", response);
+        punch.value = true;
+        loading.value = false;
+      } catch (error) {
+        console.error("Error", error);
+      }
+    };
 
     onMounted(() => {
       updateGreeting();
@@ -232,7 +272,8 @@ export default {
       reorderedInitials,
       name,
       punch,
-      pucnhIn,
+      punchIn,
+      loading,
       yesterdayIn,
       yesterdayOut,
     };
