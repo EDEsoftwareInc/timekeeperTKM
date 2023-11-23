@@ -52,7 +52,7 @@
       class="custom-drawer"
       v-model="drawer"
       show-if-above
-      :width="250"
+      :width="327"
       :breakpoint="768"
     >
       <q-scroll-area class="fit verti-line">
@@ -114,6 +114,51 @@
             </q-item>
           </q-list>
         </q-list>
+        <router-link
+          style="text-decoration: none"
+          to="/employee"
+          active-class="active"
+        >
+          <q-item clickable v-ripple>
+            <q-item-section avatar>
+              <q-icon size="md">
+                <q-img src="../assets/icon_group.svg" />
+              </q-icon>
+            </q-item-section>
+
+            <q-item-section class="text-font"> Employee </q-item-section>
+          </q-item>
+        </router-link>
+        <router-link
+          style="text-decoration: none"
+          to="/task-arranger"
+          active-class="active"
+        >
+          <q-item clickable v-ripple>
+            <q-item-section avatar>
+              <q-icon size="md">
+                <q-img src="../assets/icon_tasklist.svg" />
+              </q-icon>
+            </q-item-section>
+
+            <q-item-section class="text-font"> Task Arranger </q-item-section>
+          </q-item>
+        </router-link>
+        <router-link
+          style="text-decoration: none"
+          to="/admin"
+          active-class="active"
+        >
+          <q-item clickable v-ripple>
+            <q-item-section avatar>
+              <q-icon size="md">
+                <q-img src="../assets/icon_settings.svg" />
+              </q-icon>
+            </q-item-section>
+
+            <q-item-section class="text-font"> Admin </q-item-section>
+          </q-item>
+        </router-link>
       </q-scroll-area>
       <q-img src="../assets/dashboad-buttom-logo.png" class="drawer-logo" />
     </q-drawer>
@@ -188,7 +233,7 @@ export default {
 .q-item--active {
   color: #004e89;
   font-family: Nunito;
-  font-size: 12px;
+  font-size: 20px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
@@ -196,7 +241,7 @@ export default {
 .q-item {
   color: #000;
   font-family: Nunito;
-  font-size: 12px;
+  font-size: 20px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
