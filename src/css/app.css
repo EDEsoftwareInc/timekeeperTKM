@@ -4,6 +4,11 @@
   src: url(../fonts/Nunito-VariableFont_wght.ttf);
 }
 
+@font-face {
+  font-family: Inter;
+  src: url(../fonts/Inter-VariableFont_slnt_wght.ttf);
+}
+
 .my-font {
-  font-family: "Nunito";
+  font-family: "Inter";
 }

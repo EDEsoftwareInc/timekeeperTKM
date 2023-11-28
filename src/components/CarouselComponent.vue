@@ -5,9 +5,8 @@
     animated
     navigation
     padding
-    height="400px"
     class="bg-white text-black rounded-borders shadow-3 carousel-slide"
-    style="width: 100%; max-width: 1100px; padding: 0 !important"
+    style="width: 100%; padding: 0 !important; height: 100%"
     v-if="!$q.screen.sm"
   >
     <q-carousel-slide
@@ -32,9 +31,8 @@
     animated
     navigation
     padding
-    height="400px"
     class="bg-white text-black rounded-borders shadow-3 carousel-slide"
-    style="width: 100%; padding: 0 !important"
+    style="width: 100%; padding: 0 !important; height: 100%"
     v-if="$q.screen.sm"
   >
     <q-carousel-slide
@@ -114,10 +112,13 @@ export default {
 .q-carousel__control.q-carousel__navigation.no-wrap.absolute.flex.q-carousel__navigation--buttons.q-carousel__navigation--bottom {
   border-radius: 50px;
   background: #d9d9d9;
-  width: 134px;
+  /* width: 134px; */
   height: 28px;
   left: 765px;
   align-items: center;
+  width: 100%;
+  max-width: 135px;
+  margin-inline: auto;
 }
 
 i.q-icon.notranslate.material-icons {

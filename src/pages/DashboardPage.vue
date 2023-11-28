@@ -1,13 +1,13 @@
 <template>
   <q-page v-if="!$q.screen.sm">
     <TodayComponent />
-    <div class="row justify-center q-mt-lg q-mb-xl">
+    <div class="row justify-center q-ma-xl">
       <Carousel />
     </div>
-    <div class="row items-center add-marginTop">
+    <div class="row items-center">
       <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-xs-12">
-        <p class="weekly-sched q-ml-xl q-mb-none">Current Week Schedule</p>
-        <div class="row justify-between items-center">
+        <p class="weekly-sched q-ml-xl q-mb-none">Time Log</p>
+        <!-- <div class="row justify-between items-center">
           <div class="day-initials row">
             <div
               v-for="(initial, index) in reorderedInitials"
@@ -21,9 +21,9 @@
               {{ initial }}
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
-      <q-dialog v-model="showShed">
+      <!-- <q-dialog v-model="showShed">
         <q-card>
           <q-card-section>
             <span class="text-h5 shed-text">Schedule</span>
@@ -57,25 +57,11 @@
                 <label class="text-overline label-sched">Total</label><br />
                 <label class="text-weight-medium"> 8 hours</label>
               </div>
-
-              <!-- <q-item>In</q-item>
-              <q-item class="text-overline">
-                <br />
-                {{ item.in }}
-              </q-item>
-              <q-item class="text-overline"
-                >Out <br />
-                {{ item.out }}</q-item
-              >
-              <q-item class="text-overline"
-                >Total <br />
-                8 hours</q-item
-              > -->
             </q-card-actions>
           </q-card-section>
         </q-card>
-      </q-dialog>
-      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
+      </q-dialog> -->
+      <!-- <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
         <q-btn
           unelevated
           class="btn-color-text q-px-md q-ml-xl"
@@ -83,9 +69,99 @@
           label="Show Schedule"
           @click="showShed = true"
         />
+      </div> -->
+    </div>
+    <div class="row q-ml-lg q-mr-lg">
+      <div class="col-12">
+        <q-card class="row justify-between q-pb-lg">
+          <div class="col-6">
+            <div class="text-center card-child-header q-mb-xl q-mt-xs">
+              Today
+            </div>
+            <div class="row justify-between q-ml-lg">
+              <div class="card-child-body">
+                <div class="card-child-body-sub">03:00</div>
+                <div class="card-child-body-sub2">Worked</div>
+              </div>
+              <div class="card-child-body">
+                <div class="card-child-body-sub">08:00</div>
+                <div class="card-child-body-sub2">Scheduled</div>
+              </div>
+              <div class="card-child-body">
+                <div class="card-child-body-sub">05:00</div>
+                <div class="card-child-body-sub2">Balance</div>
+              </div>
+            </div>
+          </div>
+          <div style="position: relative">
+            <q-separator
+              style="position: absolute; left: 18px; top: 60px; height: 60%"
+              vertical
+              inset
+            />
+          </div>
+          <div class="col-6">
+            <div class="text-center card-child-header">This Month</div>
+            <div
+              class="row justify-around"
+              style="padding-left: 50px; padding: 50px"
+            >
+              <div class="q-my-sm" style="flex-basis: 50%; padding-right: 25px">
+                <div class="row justify-around">
+                  <div class="card2-child-body-sub">Total</div>
+                  <div class="card2-child-body-sub2">216 hour</div>
+                </div>
+                <q-linear-progress
+                  rounded
+                  stripe
+                  size="10px"
+                  :value="progress1"
+                />
+              </div>
+              <div class="q-my-sm" style="flex-basis: 50%">
+                <div class="row justify-around">
+                  <div class="card2-child-body-sub">Worked time</div>
+                  <div class="card2-child-body-sub2">189 hour</div>
+                </div>
+                <q-linear-progress
+                  rounded
+                  stripe
+                  size="10px"
+                  :value="progress1"
+                />
+              </div>
+              <div class="q-my-sm" style="flex-basis: 50%; padding-right: 25px">
+                <div class="row justify-around">
+                  <div class="card2-child-body-sub">Shortage time</div>
+                  <div class="card2-child-body-sub2">23 hour</div>
+                </div>
+                <q-linear-progress
+                  rounded
+                  stripe
+                  size="10px"
+                  :value="progress1"
+                />
+              </div>
+              <div class="q-my-sm" style="flex-basis: 50%">
+                <div class="row justify-around">
+                  <div class="card2-child-body-sub">Over time</div>
+                  <div class="card2-child-body-sub2">56 hour</div>
+                </div>
+                <q-linear-progress
+                  rounded
+                  stripe
+                  size="10px"
+                  :value="progress1"
+                />
+              </div>
+              <!-- <q-linear-progress stripe size="10px" :value="progress1" />
+              <q-linear-progress stripe size="10px" :value="progress1" /> -->
+            </div>
+          </div>
+        </q-card>
       </div>
     </div>
-    <div class="row marginLeftRightTop">
+    <!-- <div class="row marginLeftRightTop">
       <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
         <div class="grey-card">
           <q-icon size="xl">
@@ -119,7 +195,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </q-page>
   <q-page v-if="$q.screen.sm">
     <TodayComponentSM />
@@ -157,10 +233,8 @@
     </div>
     <div class="row items-center add-marginTop">
       <div class="col-xl-9 col-lg-9 col-md-9 col-sm-8 col-xs-12">
-        <p class="weekly-sched-tablet q-ml-xl q-mb-none">
-          Current Week Schedule
-        </p>
-        <div class="row justify-between items-center">
+        <p class="weekly-sched-tablet q-ml-xl q-mb-none">Time Log</p>
+        <!-- <div class="row justify-between items-center">
           <div class="day-initials-tablet row">
             <div
               v-for="(initial, index) in reorderedInitials"
@@ -174,9 +248,9 @@
               {{ initial }}
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
-      <q-dialog v-model="showShed">
+      <!-- <q-dialog v-model="showShed">
         <q-card>
           <q-card-section>
             <span class="text-h5 shed-text">Schedule</span>
@@ -210,25 +284,11 @@
                 <label class="text-overline label-sched">Total</label><br />
                 <label class="text-weight-medium"> 8 hours</label>
               </div>
-
-              <!-- <q-item>In</q-item>
-              <q-item class="text-overline">
-                <br />
-                {{ item.in }}
-              </q-item>
-              <q-item class="text-overline"
-                >Out <br />
-                {{ item.out }}</q-item
-              >
-              <q-item class="text-overline"
-                >Total <br />
-                8 hours</q-item
-              > -->
             </q-card-actions>
           </q-card-section>
         </q-card>
-      </q-dialog>
-      <div
+      </q-dialog> -->
+      <!-- <div
         class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-12 d-flex justify-end"
       >
         <q-btn
@@ -239,10 +299,10 @@
           label="Show Schedule"
         >
         </q-btn>
-      </div>
+      </div> -->
     </div>
 
-    <div class="row marginLeftRightTop">
+    <!-- <div class="row marginLeftRightTop">
       <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-xs-12">
         <div class="grey-card">
           <q-icon size="xl">
@@ -276,7 +336,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </q-page>
 </template>
 
@@ -400,6 +460,7 @@ export default {
       dayOfWeek,
       reorderedInitials,
       user,
+      progress1: 0.4,
     };
   },
 };
@@ -442,7 +503,7 @@ export default {
 .weekly-sched {
   color: #000;
   font-family: Nunito;
-  font-size: 24px;
+  font-size: 32px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
@@ -593,5 +654,66 @@ export default {
   font-family: Nunito;
   font-weight: bold;
   font-size: medium;
+}
+.card-parent {
+  display: flex;
+  justify-content: space-around;
+  border-radius: 8px;
+  background: var(--labels-primary, #fff);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.card-child-header {
+  color: #404040;
+  text-align: center;
+  font-family: Inter;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px; /* 100% */
+  letter-spacing: -0.264px;
+}
+.card-child-body {
+  border-radius: 8px;
+  background: var(--neutral-20, #f5f5f5);
+  padding: 10px 65px 10px 65px;
+  font-family: Inter;
+}
+.card-child-body-sub {
+  color: var(--neutral-90, #404040);
+  text-align: center;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 21px; /* 105% */
+  letter-spacing: -0.12px;
+  font-family: Inter;
+}
+
+.card-child-body-sub2 {
+  color: var(--neutral-60, #9e9e9e);
+  text-align: center;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px; /* 112.5% */
+}
+
+.card2-child-body-sub {
+  color: var(--neutral-60, #9e9e9e);
+  font-family: Inter;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px; /* 120% */
+}
+.card2-child-body-sub2 {
+  color: var(--neutral-90, #404040);
+  font-family: Inter;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px; /* 120% */
 }
 </style>
