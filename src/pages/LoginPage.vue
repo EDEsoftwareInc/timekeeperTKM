@@ -3,10 +3,13 @@
     <!--Laptop and PC view -->
 
     <div class="row page-container">
-      <div class="col-5 q-pa-sm">
+      <div
+        class="col-5 q-pa-sm"
+        style="background-color: transparent important!"
+      >
         <img
           src="~assets/logo.png"
-          style="widt: 225px; height: 59px"
+          style="widt: 225px; height: 70px"
           class="q-ma-sm"
         />
         <div style="margin-left: 100px" class="row">
@@ -268,12 +271,20 @@ const onReset = () => {
 }
 
 /* Media query for larger screens */
-@media (min-width: 1750px) {
+@media (min-width: 1750px) and (min-height: 900px) {
   .with-background-image {
-    background-image: url("../assets/larger-bg.png"); /* Replace with a larger image */
+    background-image: url("../assets/larger-bg.svg"); /* Replace with a larger image */
     background-size: cover;
   }
 }
+
+@media (min-height: 1080px) {
+  .with-background-image {
+    background-image: url("../assets/larger-bg-fullscreen.svg"); /* Replace with a larger image */
+    background-size: cover;
+  }
+}
+
 span {
   color: #545563;
   font-family: "Nunito";
