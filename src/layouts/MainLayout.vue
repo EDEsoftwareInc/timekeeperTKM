@@ -118,9 +118,7 @@
               active-class="my-menu-link"
             >
               <q-item-section class="q-ml-md" avatar>
-                <q-icon class="text-dark" size="md">
-                  <q-img src="../assets/finger-print-outline.svg" />
-                </q-icon>
+                <q-icon class="text-dark" size="md"> </q-icon>
               </q-item-section>
               <q-item-section> Punch In/Out</q-item-section>
             </q-item>
@@ -133,11 +131,22 @@
               active-class="my-menu-link"
             >
               <q-item-section class="q-ml-md" avatar>
-                <q-icon class="text-dark" size="md">
-                  <q-img src="../assets/calendar.svg" />
-                </q-icon>
+                <q-icon class="text-dark" size="md"> </q-icon>
               </q-item-section>
               <q-item-section> Schedule </q-item-section>
+            </q-item>
+            <q-item
+              clickable
+              v-ripple
+              to="/"
+              :active="link === 'create-schedule'"
+              @click="link = 'create-schedule'"
+              active-class="my-menu-link"
+            >
+              <q-item-section class="q-ml-md" avatar>
+                <q-icon class="text-dark" size="md"> </q-icon>
+              </q-item-section>
+              <q-item-section> Create Schedule </q-item-section>
             </q-item>
           </q-list>
 
@@ -155,8 +164,52 @@
                 </q-icon>
               </q-item-section>
 
-              <q-item-section class="text-font"> Employee </q-item-section>
+              <q-item-section class="text-font" @click="toggleSubListEmployee">
+                Employee
+              </q-item-section>
             </q-item>
+            <q-list v-if="showSubListEmp" padding>
+              <q-item
+                clickable
+                v-ripple
+                to="/"
+                :active="link === 'my-team'"
+                @click="link = 'my-team'"
+                active-class="my-menu-link"
+              >
+                <q-item-section class="q-ml-md" avatar>
+                  <q-icon class="text-dark" size="md"> </q-icon>
+                </q-item-section>
+                <q-item-section> My Team</q-item-section>
+              </q-item>
+              <q-item
+                clickable
+                v-ripple
+                to="/"
+                :active="link === 'all-employee'"
+                @click="link = 'all-employee'"
+                active-class="my-menu-link"
+              >
+                <q-item-section class="q-ml-md" avatar>
+                  <q-icon class="text-dark" size="md"> </q-icon>
+                </q-item-section>
+                <q-item-section> All Employee </q-item-section>
+              </q-item>
+
+              <q-item
+                clickable
+                v-ripple
+                to="/"
+                :active="link === 'org-chart'"
+                @click="link = 'org-chart'"
+                active-class="my-menu-link"
+              >
+                <q-item-section class="q-ml-md" avatar>
+                  <q-icon class="text-dark" size="md"> </q-icon>
+                </q-item-section>
+                <q-item-section> Org Chart</q-item-section>
+              </q-item>
+            </q-list>
           </router-link>
           <router-link style="text-decoration: none" to="/">
             <q-item
@@ -210,6 +263,7 @@ export default {
   setup() {
     const $q = useQuasar();
     const showSubList = ref(false);
+    const showSubListEmp = ref(false);
     const userDashboard = ref([]);
     const app = getCurrentInstance().appContext.config.globalProperties;
     // const linksList = [
@@ -245,7 +299,12 @@ export default {
       window.location.reload();
     }
     const toggleSubList = () => {
+      console.log("TESTS");
       showSubList.value = !showSubList.value;
+    };
+
+    const toggleSubListEmployee = () => {
+      showSubListEmp.value = !showSubListEmp.value;
     };
     onMounted(() => {
       getuserDashboard();
@@ -260,6 +319,8 @@ export default {
       toggleSubList,
       userDashboard,
       getuserDashboard,
+      toggleSubListEmployee,
+      showSubListEmp,
     };
   },
 };
@@ -267,7 +328,7 @@ export default {
 <style>
 .my-menu-link {
   background-color: #3baacf;
-  font-family: Nunito;
+  font-family: Inter;
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
@@ -291,10 +352,10 @@ export default {
 
 .q-item {
   color: #000;
-  font-family: Nunito;
+  font-family: Inter;
   font-size: 20px;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 500;
   line-height: normal;
 }
 
