@@ -185,7 +185,7 @@
               <q-item
                 clickable
                 v-ripple
-                to="/"
+                to="/all-employees"
                 :active="link === 'all-employee'"
                 @click="link = 'all-employee'"
                 active-class="my-menu-link"

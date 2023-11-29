@@ -15,6 +15,10 @@ const routes = [
         path: "schedule",
         component: () => import("src/pages/SchedulePage.vue"),
       },
+      {
+        path: "all-employees",
+        component: () => import("src/pages/Employees.vue"),
+      },
     ],
     meta: { requiresAuth: true },
   },
