@@ -1,6 +1,37 @@
 <template>
-  <div class="row items-center">
-    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+  <div class="body">
+    <div
+      class="q-ml-xl body"
+      style="display: flex; justify-content: space-between"
+    >
+      <div class="q-mt-lg" flex>
+        <div class="text-greeting">{{ greeting }}</div>
+        <div class="name">
+          {{ userDashboard.employee_fname }} {{ userDashboard.employee_lname }}
+        </div>
+      </div>
+      <div flex class="q-mr-xl q-mt-md">
+        <div class="dateNow row items-center q-mt-sm">
+          <q-icon
+            v-if="greeting === 'Good morning' || greeting === 'Good afternoon'"
+            class="text-dark q-ml-sm"
+            size="sm"
+          >
+            <img src="~assets/sun.svg" />
+          </q-icon>
+          <q-icon
+            v-if="greeting === 'Good evening'"
+            size="sm"
+            name="mdi-weather-night"
+          />
+          <div class="date-formatted q-ml-sm">
+            <span class="colored-day">{{ dayOfWeek }}</span
+            >, {{ formattedDate }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
       <div class="q-mt-lg text-greeting q-ml-xl">{{ greeting }}</div>
       <div class="name q-ml-xl">
         {{ userDashboard.employee_fname }} {{ userDashboard.employee_lname }}
@@ -26,31 +57,8 @@
           >, {{ formattedDate }}
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
-  <!-- <div class="row">
-    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-xs-12"></div>
-    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
-      <div class="dateNow row items-center q-mt-sm">
-        <q-icon
-          v-if="greeting === 'Good morning' || greeting === 'Good afternoon'"
-          class="text-dark q-ml-sm"
-          size="sm"
-        >
-          <img src="~assets/sun.svg" />
-        </q-icon>
-        <q-icon
-          v-if="greeting === 'Good evening'"
-          size="sm"
-          name="mdi-weather-night"
-        />
-        <div class="date-formatted q-ml-sm">
-          <span class="colored-day">{{ dayOfWeek }}</span
-          >, {{ formattedDate }}
-        </div>
-      </div>
-    </div>
-  </div> -->
 </template>
 
 <script>
@@ -189,5 +197,11 @@ export default {
 }
 .colored-day {
   color: #004e89;
+}
+.body {
+  font-family: Inter;
+  background-color: #eeeeee;
+  font-size: medium;
+  color: #000;
 }
 </style>

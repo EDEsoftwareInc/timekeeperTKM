@@ -29,12 +29,12 @@
           </q-avatar>
           <q-menu>
             <q-card class="flat no-shadow" style="width: 200px; height: 100px">
-              <div class="row justify-center q-pt-sm">
-                <q-btn
+              <div class="row justify-center">
+                <!-- <q-btn
                   @click="logout()"
                   icon="settings"
                   label="Manage Account"
-                />
+                /> -->
                 <q-btn
                   @click="logout()"
                   icon="logout"
@@ -70,9 +70,7 @@
                   <q-img src="../assets/bar-chart-outline.svg" />
                 </q-icon>
               </q-item-section>
-              <q-item-section class="text-font nav-title">
-                Dashboard
-              </q-item-section>
+              <q-item-section class="text-font"> Dashboard </q-item-section>
             </q-item>
           </router-link>
 
@@ -329,7 +327,7 @@ export default {
 .my-menu-link {
   background-color: #3baacf;
   font-family: Inter;
-  font-size: 20px;
+  font-size: 15px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
@@ -353,7 +351,6 @@ export default {
 .q-item {
   color: #000;
   font-family: Inter;
-  font-size: 20px;
   font-style: normal;
   font-weight: 500;
   line-height: normal;

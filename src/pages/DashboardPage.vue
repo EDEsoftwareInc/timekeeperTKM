@@ -1,12 +1,12 @@
 <template>
-  <q-page v-if="!$q.screen.sm">
+  <q-page class="body" v-if="!$q.screen.sm">
     <TodayComponent />
     <div class="row justify-center q-ma-xl">
       <Carousel />
     </div>
     <div class="row items-center">
       <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-xs-12">
-        <p class="weekly-sched q-ml-xl q-mb-none">Time Log</p>
+        <p class="weekly-sched q-ml-xl q-mb-sm">Time Log</p>
         <!-- <div class="row justify-between items-center">
           <div class="day-initials row">
             <div
@@ -71,7 +71,7 @@
         />
       </div> -->
     </div>
-    <div class="row q-ml-lg q-mr-lg">
+    <div class="row q-ml-lg q-mr-lg q-mt-sm">
       <div class="col-12">
         <q-card class="row justify-between q-pb-lg">
           <div class="col-6">
@@ -553,7 +553,7 @@ export default {
 
 <style>
 .date-formatted {
-  font-family: Nunito;
+  font-family: Inter;
   font-size: 16px;
   font-style: normal;
   font-weight: 300;
@@ -561,7 +561,7 @@ export default {
 }
 .text-greeting {
   color: #000;
-  font-family: Nunito;
+  font-family: Inter;
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
@@ -569,7 +569,7 @@ export default {
 }
 .name {
   color: #004e89;
-  font-family: Nunito;
+  font-family: Inter;
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
@@ -587,7 +587,7 @@ export default {
 }
 .weekly-sched {
   color: #000;
-  font-family: Nunito;
+  font-family: Inter;
   font-size: 32px;
   font-style: normal;
   font-weight: 700;
@@ -595,7 +595,7 @@ export default {
 }
 .weekly-sched-tablet {
   color: #000;
-  font-family: Nunito;
+  font-family: Inter;
   font-size: 20px;
   font-style: normal;
   font-weight: bold;
@@ -621,7 +621,7 @@ export default {
 }
 .day-initial {
   color: #000;
-  font-family: Nunito;
+  font-family: Inter;
   font-size: 22px;
   font-style: normal;
   font-weight: 800;
@@ -630,7 +630,7 @@ export default {
 }
 .day-initial-tablet {
   color: #000;
-  font-family: Nunito;
+  font-family: Inter;
   font-size: 15px;
   font-style: normal;
   font-weight: 800;
@@ -643,7 +643,7 @@ export default {
 .btn-color-text {
   color: var(--labels-primary, #fff);
   text-align: center;
-  font-family: Nunito;
+  font-family: Inter;
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
@@ -655,7 +655,7 @@ export default {
 .btn-color-text-tablet {
   color: var(--labels-primary, #fff);
   text-align: center;
-  font-family: Nunito;
+  font-family: Inter;
   font-size: 10px;
   font-style: normal;
   font-weight: 700;
@@ -668,7 +668,7 @@ export default {
 }
 .add-marginTop {
   margin-top: 90px;
-  font-family: Nunito;
+  font-family: Inter;
 }
 .grey-card {
   border-radius: 15px;
@@ -689,7 +689,7 @@ export default {
 }
 .text-timer {
   color: #000;
-  font-family: Nunito;
+  font-family: Inter;
   font-size: 15px;
   font-style: normal;
   font-weight: 700;
@@ -697,7 +697,7 @@ export default {
 }
 .timer {
   color: #000;
-  font-family: Nunito;
+  font-family: Inter;
   font-size: 25px;
   font-style: normal;
   font-weight: 700;
@@ -705,7 +705,7 @@ export default {
 }
 .text-timerMargin {
   margin-left: 18px;
-  font-family: Nunito;
+  font-family: Inter;
 }
 
 /* Media query for tablet and smaller screens */
@@ -715,28 +715,28 @@ export default {
   border-bottom: 0.5px solid #545563;
   padding: 0px;
   margin: 0px;
-  font-family: Nunito;
+  font-family: Inter;
 }
 .day-date-shed {
   padding: 0px;
   margin: 0px;
-  font-family: Nunito;
+  font-family: Inter;
 }
 .label-sched {
   font-size: 12px;
   color: #545563;
   align-self: center;
-  font-family: Nunito;
+  font-family: Inter;
 }
 .shed-text {
-  font-family: Nunito;
+  font-family: Inter;
   font-weight: bold;
 }
 .sche-desc {
-  font-family: Nunito;
+  font-family: Inter;
 }
 .date-label {
-  font-family: Nunito;
+  font-family: Inter;
   font-weight: bold;
   font-size: medium;
 }
@@ -756,6 +756,7 @@ export default {
   font-weight: 500;
   line-height: 24px; /* 100% */
   letter-spacing: -0.264px;
+  margin-top: 5px;
 }
 .card-child-body {
   border-radius: 8px;
@@ -814,5 +815,9 @@ export default {
 
 .flex-basis50 {
   flex-basis: 50%;
+}
+.body {
+  font-family: Inter;
+  background-color: #eeeeee;
 }
 </style>

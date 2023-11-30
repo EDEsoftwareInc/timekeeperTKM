@@ -16,7 +16,18 @@
           <div class="col-10">
             <p readonly>Login</p>
             <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
-              <span class="text-weight-medium">Email</span>
+              <div class="text-container">
+                <span class="text-weight-medium">Email</span>
+                <q-chip
+                  v-if="errorApi"
+                  dense
+                  color="red"
+                  text-color="white"
+                  icon="error"
+                >
+                  {{ errorApi }}
+                </q-chip>
+              </div>
               <q-input
                 v-model="email"
                 placeholder="name@example.com"
@@ -80,6 +91,7 @@
                     color="white"
                   />
                 </q-btn>
+
                 <q-btn
                   no-caps
                   label="Forgot password"
@@ -204,6 +216,7 @@ const email = ref(null);
 const password = ref(null);
 const accept = ref(false);
 const showPassword = ref(false);
+const errorApi = ref("");
 const tkmApi = ref("http://54.173.81.133:3001/api/v1/");
 
 const shape = ref(["line"]);
@@ -239,11 +252,16 @@ const onSubmit = async () => {
         path: "/dashboard",
       });
     } else {
+      loading.value = false;
       console.log("userData is null or undefined");
       // Handle the scenario where userData is null or undefined
     }
   } catch (error) {
-    console.error("Error during the request:", error);
+    loading.value = false;
+
+    console.error("Error during the request:", error.response.data.message);
+
+    errorApi.value = error.response.data.message;
     // Handle the error (e.g., show an error message to the user)
   }
 };
@@ -350,5 +368,10 @@ input {
   background-repeat: no-repeat;
   background-position: center center;
   height: 100vh;
+}
+.text-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 </style>
