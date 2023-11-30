@@ -138,9 +138,9 @@
             <q-item
               clickable
               v-ripple
-              to="/"
-              :active="link === 'create-schedule'"
-              @click="link = 'create-schedule'"
+              to="/create-sched"
+              :active="link === 'create-sched'"
+              @click="link = 'create-sched'"
               active-class="my-menu-link"
             >
               <q-item-section class="q-ml-md" avatar>

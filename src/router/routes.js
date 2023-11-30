@@ -19,6 +19,10 @@ const routes = [
         path: "all-employees",
         component: () => import("src/pages/Employees.vue"),
       },
+      {
+        path: "create-sched",
+        component: () => import("src/pages/CreateSchedule.vue"),
+      },
     ],
     meta: { requiresAuth: true },
   },

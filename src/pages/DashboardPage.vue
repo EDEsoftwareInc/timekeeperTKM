@@ -93,20 +93,13 @@
               </div>
             </div>
           </div>
-          <div style="position: relative">
-            <q-separator
-              style="position: absolute; left: 18px; top: 60px; height: 60%"
-              vertical
-              inset
-            />
+          <div class="hr-relative">
+            <q-separator class="hr-absolute" vertical inset />
           </div>
           <div class="col-6">
             <div class="text-center card-child-header">This Month</div>
-            <div
-              class="row justify-around"
-              style="padding-left: 50px; padding: 50px"
-            >
-              <div class="q-my-sm" style="flex-basis: 50%; padding-right: 25px">
+            <div class="row justify-around q-pt-lg q-pl-xl q-pb-lg q-pr-xl">
+              <div class="q-my-sm q-pr-lg flex-basis50">
                 <div class="row justify-around">
                   <div class="card2-child-body-sub">Total</div>
                   <div class="card2-child-body-sub2">216 hour</div>
@@ -118,7 +111,7 @@
                   :value="progress1"
                 />
               </div>
-              <div class="q-my-sm" style="flex-basis: 50%">
+              <div class="q-my-sm flex-basis50">
                 <div class="row justify-around">
                   <div class="card2-child-body-sub">Worked time</div>
                   <div class="card2-child-body-sub2">189 hour</div>
@@ -130,7 +123,7 @@
                   :value="progress1"
                 />
               </div>
-              <div class="q-my-sm" style="flex-basis: 50%; padding-right: 25px">
+              <div class="q-my-sm flex-basis50 q-pr-lg">
                 <div class="row justify-around">
                   <div class="card2-child-body-sub">Shortage time</div>
                   <div class="card2-child-body-sub2">23 hour</div>
@@ -142,7 +135,7 @@
                   :value="progress1"
                 />
               </div>
-              <div class="q-my-sm" style="flex-basis: 50%">
+              <div class="q-my-sm flex-basis50">
                 <div class="row justify-around">
                   <div class="card2-child-body-sub">Over time</div>
                   <div class="card2-child-body-sub2">56 hour</div>
@@ -300,6 +293,98 @@
         >
         </q-btn>
       </div> -->
+    </div>
+
+    <div class="row q-ml-lg q-mr-lg">
+      <div class="col-12">
+        <q-card class="row justify-between q-pb-lg">
+          <div class="col-6">
+            <div class="text-center card-child-header q-mb-xl q-mt-xs">
+              Today
+            </div>
+            <div class="row justify-between q-ml-lg">
+              <div class="card-child-body">
+                <div class="card-child-body-sub">03:00</div>
+                <div class="card-child-body-sub2">Worked</div>
+              </div>
+              <div class="card-child-body">
+                <div class="card-child-body-sub">08:00</div>
+                <div class="card-child-body-sub2">Scheduled</div>
+              </div>
+              <div class="card-child-body">
+                <div class="card-child-body-sub">05:00</div>
+                <div class="card-child-body-sub2">Balance</div>
+              </div>
+            </div>
+          </div>
+          <div class="hr-relative" style="position: relative">
+            <q-separator
+              class="hr-absolute"
+              style="position: absolute; left: 18px; top: 60px; height: 60%"
+              vertical
+              inset
+            />
+          </div>
+          <div class="col-6">
+            <div class="text-center card-child-header">This Month</div>
+            <div
+              class="row justify-around"
+              style="padding: 20px 50px 20px 50px"
+            >
+              <div class="q-my-sm" style="flex-basis: 50%; padding-right: 25px">
+                <div class="row justify-around">
+                  <div class="card2-child-body-sub">Total</div>
+                  <div class="card2-child-body-sub2">216 hour</div>
+                </div>
+                <q-linear-progress
+                  rounded
+                  stripe
+                  size="10px"
+                  :value="progress1"
+                />
+              </div>
+              <div class="q-my-sm" style="flex-basis: 50%">
+                <div class="row justify-around">
+                  <div class="card2-child-body-sub">Worked time</div>
+                  <div class="card2-child-body-sub2">189 hour</div>
+                </div>
+                <q-linear-progress
+                  rounded
+                  stripe
+                  size="10px"
+                  :value="progress1"
+                />
+              </div>
+              <div class="q-my-sm" style="flex-basis: 50%; padding-right: 25px">
+                <div class="row justify-around">
+                  <div class="card2-child-body-sub">Shortage time</div>
+                  <div class="card2-child-body-sub2">23 hour</div>
+                </div>
+                <q-linear-progress
+                  rounded
+                  stripe
+                  size="10px"
+                  :value="progress1"
+                />
+              </div>
+              <div class="q-my-sm" style="flex-basis: 50%">
+                <div class="row justify-around">
+                  <div class="card2-child-body-sub">Over time</div>
+                  <div class="card2-child-body-sub2">56 hour</div>
+                </div>
+                <q-linear-progress
+                  rounded
+                  stripe
+                  size="10px"
+                  :value="progress1"
+                />
+              </div>
+              <!-- <q-linear-progress stripe size="10px" :value="progress1" />
+              <q-linear-progress stripe size="10px" :value="progress1" /> -->
+            </div>
+          </div>
+        </q-card>
+      </div>
     </div>
 
     <!-- <div class="row marginLeftRightTop">
@@ -715,5 +800,19 @@ export default {
   font-style: normal;
   font-weight: 500;
   line-height: 18px; /* 120% */
+}
+
+.hr-relative {
+  position: relative;
+}
+.hr-absolute {
+  position: absolute;
+  left: 18px;
+  top: 60px;
+  height: 60%;
+}
+
+.flex-basis50 {
+  flex-basis: 50%;
 }
 </style>
