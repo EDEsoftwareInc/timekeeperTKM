@@ -241,9 +241,6 @@ const onSubmit = async () => {
       }
     );
     const userData = response.data; // assuming the response contains data
-
-    console.log("DATA", userData);
-
     // Check if the userData is not null or undefined
     if (userData !== null && userData !== undefined) {
       $q.localStorage.set("user", userData);
@@ -253,14 +250,10 @@ const onSubmit = async () => {
       });
     } else {
       loading.value = false;
-      console.log("userData is null or undefined");
       // Handle the scenario where userData is null or undefined
     }
   } catch (error) {
     loading.value = false;
-
-    console.error("Error during the request:", error.response.data.message);
-
     errorApi.value = error.response.data.message;
     // Handle the error (e.g., show an error message to the user)
   }

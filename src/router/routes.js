@@ -23,6 +23,22 @@ const routes = [
         path: "create-sched",
         component: () => import("src/pages/CreateSchedule.vue"),
       },
+      {
+        path: "my-team",
+        component: () => import("src/pages/MyTeam.vue"),
+      },
+      {
+        path: "org-chart",
+        component: () => import("src/pages/OrgChart.vue"),
+      },
+      {
+        path: "task-arranger",
+        component: () => import("src/pages/TaskArranger.vue"),
+      },
+      {
+        path: "admin",
+        component: () => import("src/pages/Admin.vue"),
+      },
     ],
     meta: { requiresAuth: true },
   },

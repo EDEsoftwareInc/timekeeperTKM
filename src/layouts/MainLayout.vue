@@ -1,6 +1,6 @@
 <template>
   <q-layout view="hHh Lpr lff" class="shadow-2">
-    <q-header elevated style="background-color: #004e89">
+    <q-header elevated style="background-color: #ffffff">
       <q-toolbar class="q-ma-sm">
         <q-btn
           class="burger-btn"
@@ -10,41 +10,94 @@
           round
           dense
           size="md"
+          style="color: #094267"
+        >
+          <q-icon name="menu" style="font-size: 30px"></q-icon>
+        </q-btn>
+        <q-btn
+          class="burger-btn"
+          v-else
+          flat
+          @click="drawer = !drawer"
+          round
+          dense
+          size="md"
+          style="color: #094267"
         >
           <q-icon name="menu" style="font-size: 30px"></q-icon>
         </q-btn>
         <q-toolbar-title class="q-mr-md">
           <q-img
             clickable
-            src="../assets/tkm-logo.svg"
-            style="cursor: pointer; width: 200px; height: 50px"
+            src="~assets/logo.png"
+            style="cursor: pointer; width: 270px; height: 65px"
           />
         </q-toolbar-title>
-        <q-btn class="q-mr-md" round flat>
-          <q-avatar
-            text-color="white"
-            style="background-color: #3baacf !important"
-          >
-            {{ userDashboard.employee_fname + userDashboard.employee_lname }}
-          </q-avatar>
-          <q-menu>
-            <q-card class="flat no-shadow" style="width: 200px; height: 100px">
-              <div class="row justify-center">
-                <!-- <q-btn
-                  @click="logout()"
-                  icon="settings"
-                  label="Manage Account"
-                /> -->
-                <q-btn
-                  @click="logout()"
-                  icon="logout"
-                  label="Sign-Out"
-                  class="q-mt-sm"
-                />
+        <q-btn-dropdown style="size: 15px" color="primary" flat no-caps>
+          <template v-slot:label>
+            <div class="row items-center no-wrap">
+              <q-avatar size="md">
+                <q-icon name="mdi-account-circle" />
+              </q-avatar>
+              <div class="text-center q-pa-sm">
+                {{ userDashboard?.employee_fname }}
+                {{ userDashboard?.employee_lname }}
               </div>
-            </q-card>
-          </q-menu>
-        </q-btn>
+            </div>
+          </template>
+
+          <q-list style="min-width: 300px">
+            <q-item class="q-pa-md">
+              <q-item-section class="text-center">
+                <q-item-label>
+                  <q-avatar size="72px">
+                    <q-icon
+                      color="primary"
+                      size="72px"
+                      name="mdi-account-circle"
+                    />
+                  </q-avatar>
+                  <div class="text-h6">
+                    {{ userDashboard?.employee_fname }}
+                    {{ userDashboard?.employee_lname }}
+                  </div>
+                  <div class="text-body2">
+                    Employee ID: {{ userDashboard?.employee_fname }}
+                    {{ userDashboard?.employee_lname }}
+                  </div>
+                </q-item-label>
+              </q-item-section>
+            </q-item>
+
+            <q-separator spaced />
+
+            <q-item clickable v-ripple v-close-popup>
+              <q-item-section side>
+                <q-icon name="mdi-account-outline"></q-icon>
+              </q-item-section>
+              <q-item-section clickable>
+                <q-item-label> Manage account </q-item-label>
+              </q-item-section>
+            </q-item>
+
+            <q-item @click="logout()" clickable v-ripple v-close-popup>
+              <q-item-section side>
+                <q-icon name="mdi-logout"></q-icon>
+              </q-item-section>
+              <q-item-section>
+                <q-item-label> Log Out </q-item-label>
+              </q-item-section>
+            </q-item>
+
+            <q-item dense>
+              <q-item-section>
+                <q-item-label class="text-right">
+                  Tkm version : 1.1.0
+                </q-item-label>
+              </q-item-section>
+            </q-item>
+          </q-list>
+        </q-btn-dropdown>
       </q-toolbar>
     </q-header>
 
@@ -170,7 +223,7 @@
               <q-item
                 clickable
                 v-ripple
-                to="/"
+                to="/my-team"
                 :active="link === 'my-team'"
                 @click="link = 'my-team'"
                 active-class="my-menu-link"
@@ -197,7 +250,7 @@
               <q-item
                 clickable
                 v-ripple
-                to="/"
+                to="/org-chart"
                 :active="link === 'org-chart'"
                 @click="link = 'org-chart'"
                 active-class="my-menu-link"
@@ -209,7 +262,7 @@
               </q-item>
             </q-list>
           </router-link>
-          <router-link style="text-decoration: none" to="/">
+          <router-link style="text-decoration: none" to="/task-arranger">
             <q-item
               clickable
               v-ripple
@@ -226,7 +279,7 @@
               <q-item-section class="text-font"> Task Arranger </q-item-section>
             </q-item>
           </router-link>
-          <router-link style="text-decoration: none" to="/">
+          <router-link style="text-decoration: none" to="/admin">
             <q-item
               clickable
               :active="link === 'admin'"
@@ -279,6 +332,7 @@ export default {
     const user = computed(() => {
       return $q.localStorage.getItem("user");
     });
+    console.log("USER main", user);
     async function getuserDashboard() {
       const config = {
         method: "get",
@@ -287,6 +341,7 @@ export default {
       try {
         const response = await app.$axios(config);
         userDashboard.value = response.data;
+        console.log("userDashboard", userDashboard.value.employee_lname);
       } catch (error) {
         console.error("Error", error);
       }
@@ -387,5 +442,9 @@ router-link {
 
 i.q-icon.notranslate.material-icons {
   font-size: 30px;
+}
+.mild-shadow {
+  box-shadow: 0 2px 4px rgb(0 0 0 / 12%), 0 0 6px rgb(0 0 0 / 4%);
+  transition: box-shadow 0.4s;
 }
 </style>
