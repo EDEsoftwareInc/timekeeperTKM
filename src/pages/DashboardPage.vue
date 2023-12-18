@@ -71,30 +71,28 @@
         />
       </div> -->
     </div>
-    <div class="row q-ml-lg q-mr-lg q-mt-sm">
+    <div class="row q-ml-xl q-mr-xl q-mt-sm">
       <div class="col-12">
-        <q-card class="row justify-between q-pb-lg">
+        <q-card class="row justify-between" style="border-radius: 8px">
           <div class="col-6">
-            <div class="text-center card-child-header q-mb-xl q-mt-xs">
-              Today
-            </div>
+            <div class="text-center card-child-header q-mb-xl">Today</div>
             <div class="row justify-between q-ml-lg">
               <div class="card-child-body">
-                <div class="card-child-body-sub">03:00</div>
-                <div class="card-child-body-sub2">Worked</div>
-              </div>
-              <div class="card-child-body">
-                <div class="card-child-body-sub">08:00</div>
+                <div class="card-child-body-sub q-mb-md">08:00</div>
                 <div class="card-child-body-sub2">Scheduled</div>
               </div>
               <div class="card-child-body">
-                <div class="card-child-body-sub">05:00</div>
+                <div class="card-child-body-sub q-mb-md">03:00</div>
+                <div class="card-child-body-sub2">Worked</div>
+              </div>
+              <div class="card-child-body">
+                <div class="card-child-body-sub q-mb-md">05:00</div>
                 <div class="card-child-body-sub2">Balance</div>
               </div>
             </div>
           </div>
           <div class="hr-relative">
-            <q-separator class="hr-absolute" vertical inset />
+            <q-separator class="hr-absolute q-mt-none" vertical inset />
           </div>
           <div class="col-6">
             <div class="text-center card-child-header">This Month</div>
@@ -304,12 +302,12 @@
             </div>
             <div class="row justify-between q-ml-lg">
               <div class="card-child-body">
-                <div class="card-child-body-sub">03:00</div>
-                <div class="card-child-body-sub2">Worked</div>
-              </div>
-              <div class="card-child-body">
                 <div class="card-child-body-sub">08:00</div>
                 <div class="card-child-body-sub2">Scheduled</div>
+              </div>
+              <div class="card-child-body">
+                <div class="card-child-body-sub">03:00</div>
+                <div class="card-child-body-sub2">Worked</div>
               </div>
               <div class="card-child-body">
                 <div class="card-child-body-sub">05:00</div>
@@ -588,7 +586,7 @@ export default {
 .weekly-sched {
   color: #000;
   font-family: Inter;
-  font-size: 32px;
+  font-size: 20px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
@@ -756,7 +754,7 @@ export default {
   font-weight: 500;
   line-height: 24px; /* 100% */
   letter-spacing: -0.264px;
-  margin-top: 5px;
+  margin-top: 10px;
 }
 .card-child-body {
   border-radius: 8px;
@@ -809,8 +807,7 @@ export default {
 .hr-absolute {
   position: absolute;
   left: 18px;
-  top: 60px;
-  height: 60%;
+  height: 100%;
 }
 
 .flex-basis50 {
@@ -819,5 +816,18 @@ export default {
 .body {
   font-family: Inter;
   background-color: #eeeeee;
+}
+.q-linear-progress__stripe {
+  background-size: 25px 25px !important;
+  background-image: linear-gradient(
+    315deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    rgba(255, 255, 255, 0) 25%,
+    rgba(255, 255, 255, 0) 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    rgba(255, 255, 255, 0) 75%,
+    rgba(255, 255, 255, 0)
+  ) !important;
 }
 </style>

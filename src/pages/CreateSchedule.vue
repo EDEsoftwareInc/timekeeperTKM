@@ -90,19 +90,23 @@ export default {
         data.locale,
         options
       );
-      console.log("currentMonthYear.value", currentMonthYear.value);
       console.log("onMoved", data);
     };
 
     const onChange = (data) => {
       console.log("onChange", data);
-      const selectedDate = new Date(data.end);
-      const options = { year: "numeric", month: "long" };
-      currentMonthYear.value = selectedDate.toLocaleDateString(
-        data.locale,
-        options
-      );
-      console.log("Selected Month:", currentMonthYear.value);
+      const currentMonthObj = data.days.find((day) => day.current);
+
+      if (currentMonthObj) {
+        const currentDate = new Date(currentMonthObj.date);
+        const formattedMonth = currentDate.toLocaleDateString(undefined, {
+          year: "numeric",
+          month: "long",
+        });
+        currentMonthYear.value = formattedMonth;
+      } else {
+        // console.error("Current month not found in the days array");
+      }
     };
 
     const onClickDate = (data) => {

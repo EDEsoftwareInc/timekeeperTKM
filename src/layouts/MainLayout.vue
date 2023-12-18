@@ -380,7 +380,7 @@ export default {
 </script>
 <style>
 .my-menu-link {
-  background-color: #3baacf;
+  background-color: #004e89;
   font-family: Inter;
   font-size: 15px;
   font-style: normal;
