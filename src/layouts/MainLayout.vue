@@ -386,6 +386,7 @@ export default {
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+  color: #ffffff !important;
   /* background: #26A69A; */
 }
 .verti-line {
