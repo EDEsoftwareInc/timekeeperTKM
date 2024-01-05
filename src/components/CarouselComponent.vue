@@ -10,6 +10,21 @@
     v-if="!$q.screen.sm"
   >
     <q-carousel-slide
+      v-for="banner in bannerData"
+      :key="banner.banner_id"
+      :name="banner.banner_id"
+      class="row items-center"
+    >
+      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+        <q-img :src="banner.banner_image_url" />
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 text-layout">
+        <p class="right-text-carousel">{{ banner.banner_desc }}</p>
+      </div>
+    </q-carousel-slide>
+  </q-carousel>
+
+  <!-- <q-carousel-slide
       name="style"
       v-for="banner in bannerData"
       :key="banner.banner_id"
@@ -19,11 +34,10 @@
         <q-img :src="banner.banner_image_url" />
       </div>
       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 text-layout">
-        <!-- <div class="text-h5 right-text-carousel">{{ banner.banner_title }}</div> -->
         <p class="right-text-carousel">{{ banner.banner_desc }}</p>
       </div>
     </q-carousel-slide>
-  </q-carousel>
+  </q-carousel> -->
 
   <q-carousel
     v-model="slide"
@@ -96,7 +110,7 @@ export default {
       bannerData,
       banners,
       app,
-      slide: ref("style"),
+      slide: ref(1),
       lorem:
         "We prioritize our employees' health by offering competitive medical insurance plans, ensuring that you and your family receive top-notch care.",
     };
