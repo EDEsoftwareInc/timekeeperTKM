@@ -36,12 +36,15 @@
         <q-btn-dropdown style="size: 15px" color="primary" flat no-caps>
           <template v-slot:label>
             <div class="row items-center no-wrap">
-              <q-avatar size="md">
+              <q-avatar v-if="userDashboard?.company_logo" size="md">
                 <q-icon name="mdi-account-circle" />
               </q-avatar>
+              <q-avatar v-else size="md">
+                <q-icon name="close" />
+              </q-avatar>
               <div class="text-center q-pa-sm">
-                {{ userDashboard?.employee_fname }}
-                {{ userDashboard?.employee_lname }}
+                <!-- {{ userDashboard?.employee_fname }}
+                {{ userDashboard?.employee_lname }} -->
               </div>
             </div>
           </template>
@@ -150,7 +153,7 @@
             @click="link = 'time'"
             active-class="my-menu-link"
           >
-            <q-item-section avatar>
+            <q-item-section avatar @click="toggleSubList">
               <q-icon class="text-dark" size="md">
                 <q-img src="../assets/timer.svg" />
               </q-icon>
@@ -209,7 +212,7 @@
               @click="link = 'employee'"
               active-class="my-menu-link"
             >
-              <q-item-section avatar>
+              <q-item-section avatar @click="toggleSubListEmployee">
                 <q-icon size="md">
                   <q-img src="../assets/icon_group.svg" />
                 </q-icon>
@@ -288,7 +291,12 @@
             >
               <q-item-section avatar>
                 <q-icon size="md">
-                  <q-img src="../assets/icon_settings.svg" />
+                  <q-img
+                    clickable
+                    :active="link === 'admin'"
+                    @click="link = 'admin'"
+                    src="../assets/icon_settings.svg"
+                  />
                 </q-icon>
               </q-item-section>
 
