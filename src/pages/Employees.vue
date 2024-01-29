@@ -229,6 +229,7 @@ async function fetchDataFromServer() {
   try {
     const response = await fetch("http://54.173.81.133:3001/api/v1/users");
     const data = await response.json();
+    console.log(data);
     return data;
   } catch (error) {
     console.error("Error fetching data from the server:", error);

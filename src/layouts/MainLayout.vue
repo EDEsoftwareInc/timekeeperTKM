@@ -2,7 +2,7 @@
   <q-layout view="hHh Lpr lff" class="shadow-2">
     <q-header elevated style="background-color: #ffffff">
       <q-toolbar class="q-ma-sm">
-        <q-btn
+        <!-- <q-btn
           class="burger-btn"
           v-if="$q.screen.lt.md || $q.screen.lt.sm"
           flat
@@ -25,7 +25,7 @@
           style="color: #094267"
         >
           <q-icon name="menu" style="font-size: 30px"></q-icon>
-        </q-btn>
+        </q-btn> -->
         <q-toolbar-title class="q-mr-md">
           <q-img
             clickable
@@ -33,20 +33,22 @@
             style="cursor: pointer; width: 270px; height: 65px"
           />
         </q-toolbar-title>
-        <q-btn-dropdown style="size: 15px" color="primary" flat no-caps>
+        <q-btn-dropdown round flat style="size: 15px" color="primary" no-caps>
           <template v-slot:label>
-            <div class="row items-center no-wrap">
-              <q-avatar v-if="userDashboard?.company_logo" size="md">
-                <q-icon name="mdi-account-circle" />
-              </q-avatar>
-              <q-avatar v-else size="md">
-                <q-icon name="close" />
-              </q-avatar>
-              <div class="text-center q-pa-sm">
-                <!-- {{ userDashboard?.employee_fname }}
-                {{ userDashboard?.employee_lname }} -->
-              </div>
-            </div>
+            <q-btn round flat>
+              <q-avatar class="round-icon-name" text-color="white">
+                {{
+                  userDashboard?.employee_fname
+                    ? userDashboard.employee_fname.charAt(0)
+                    : ""
+                }}
+                {{
+                  userDashboard?.employee_lname
+                    ? userDashboard.employee_lname.charAt(0)
+                    : ""
+                }}</q-avatar
+              >
+            </q-btn>
           </template>
 
           <q-list style="min-width: 300px">
@@ -105,14 +107,23 @@
     </q-header>
 
     <q-drawer
-      class="custom-drawer"
       v-model="drawer"
       show-if-above
-      :width="327"
-      :breakpoint="768"
+      :width="200"
+      :breakpoint="500"
+      :mini="!drawer || miniState"
+      @click.capture="drawerClick"
+      bordered
+      :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-grey-3'"
     >
       <q-scroll-area class="fit verti-line">
-        <q-list padding class="menu-list">
+        <q-list style="display: flex; flex-direction: column">
+          <!-- <q-btn
+            @click="drawer = !drawer"
+            style="color: #094267; margin-right: -98%"
+          >
+            <q-icon name="menu" style="font-size: 30px"></q-icon>
+          </q-btn> -->
           <router-link style="text-decoration: none" to="/dashboard">
             <q-item
               clickable
@@ -122,8 +133,12 @@
               active-class="my-menu-link"
             >
               <q-item-section avatar>
-                <q-icon size="md">
-                  <q-img src="../assets/bar-chart-outline.svg" />
+                <q-icon class="material-symbols-outlined" size="lg">
+                  <q-img
+                    v-if="link === 'dashboard'"
+                    src="../assets/bar-chart-outline-white.svg"
+                  />
+                  <q-img v-else src="../assets/bar-chart-outline.svg" />
                 </q-icon>
               </q-item-section>
               <q-item-section class="text-font"> Dashboard </q-item-section>
@@ -139,8 +154,12 @@
               active-class="my-menu-link"
             >
               <q-item-section avatar>
-                <q-icon size="md">
-                  <q-img src="../assets/card-outline.svg" />
+                <q-icon class="material-symbols-outlined" size="lg">
+                  <q-img
+                    v-if="link === 'pay'"
+                    src="../assets/card-outline-white.svg"
+                  />
+                  <q-img v-else src="../assets/card-outline.svg" />
                 </q-icon>
               </q-item-section>
               <q-item-section class="text-font"> Pay </q-item-section>
@@ -154,8 +173,12 @@
             active-class="my-menu-link"
           >
             <q-item-section avatar @click="toggleSubList">
-              <q-icon class="text-dark" size="md">
-                <q-img src="../assets/timer.svg" />
+              <q-icon class="material-symbols-outlined" size="lg">
+                <q-img
+                  v-if="link === 'time'"
+                  src="../assets/time-outline-white.svg"
+                />
+                <q-img v-else src="../assets/time-outline.svg" />
               </q-icon>
             </q-item-section>
             <q-item-section class="text-font" @click="toggleSubList">
@@ -213,8 +236,12 @@
               active-class="my-menu-link"
             >
               <q-item-section avatar @click="toggleSubListEmployee">
-                <q-icon size="md">
-                  <q-img src="../assets/icon_group.svg" />
+                <q-icon class="material-symbols-outlined" size="lg">
+                  <q-img
+                    v-if="link === 'employee'"
+                    src="../assets/icon_group-white.svg"
+                  />
+                  <q-img v-else src="../assets/icon_group.svg" />
                 </q-icon>
               </q-item-section>
 
@@ -274,8 +301,12 @@
               active-class="my-menu-link"
             >
               <q-item-section avatar>
-                <q-icon size="md">
-                  <q-img src="../assets/icon_tasklist.svg" />
+                <q-icon class="material-symbols-outlined" size="lg">
+                  <q-img
+                    v-if="link === 'task-arranger'"
+                    src="../assets/icon_tasklis-white.svg"
+                  />
+                  <q-img v-else src="../assets/icon_tasklist.svg" />
                 </q-icon>
               </q-item-section>
 
@@ -290,13 +321,12 @@
               active-class="my-menu-link"
             >
               <q-item-section avatar>
-                <q-icon size="md">
+                <q-icon class="material-symbols-outlined" size="lg">
                   <q-img
-                    clickable
-                    :active="link === 'admin'"
-                    @click="link = 'admin'"
-                    src="../assets/icon_settings.svg"
+                    v-if="link === 'admin'"
+                    src="../assets/icon_settings-white.svg"
                   />
+                  <q-img v-else src="../assets/icon_settings.svg" />
                 </q-icon>
               </q-item-section>
 
@@ -306,6 +336,15 @@
         </q-list>
         <q-img src="../assets/dashboad-buttom-logo.png" class="drawer-logo" />
       </q-scroll-area>
+      <div class="q-mini-drawer-hide absolute" style="top: 15px; right: -17px">
+        <q-btn
+          dense
+          round
+          style="color: white; background-color: #094267"
+          icon="chevron_left"
+          @click="miniState = true"
+        />
+      </div>
     </q-drawer>
 
     <q-page-container>
@@ -321,21 +360,11 @@ import { useQuasar } from "quasar";
 export default {
   setup() {
     const $q = useQuasar();
+    const miniState = ref(false);
     const showSubList = ref(false);
     const showSubListEmp = ref(false);
     const userDashboard = ref([]);
     const app = getCurrentInstance().appContext.config.globalProperties;
-    // const linksList = [
-    //   {
-    //     title: "Dashboard",
-    //     icon: "http://localhost:9000/src/assets/card-outline.svg",
-    //     path: "/dashboard",
-    //   },
-    //   {
-    //     title: "Pay",
-    //     icon: "http://localhost:9000/src/assets/card-outline.svg",
-    //     path: "/",
-    // ];
 
     const user = computed(() => {
       return $q.localStorage.getItem("user");
@@ -376,12 +405,25 @@ export default {
       logout,
       showSubList,
       link: ref("dashboard"),
-      // linksList,
       toggleSubList,
       userDashboard,
       getuserDashboard,
       toggleSubListEmployee,
       showSubListEmp,
+      miniState,
+
+      drawerClick(e) {
+        // if in "mini" state and user
+        // click on drawer, we switch it to "normal" mode
+        if (miniState.value) {
+          miniState.value = false;
+
+          // notice we have registered an event with capture flag;
+          // we need to stop further propagation as this click is
+          // intended for switching drawer to "normal" mode only
+          e.stopPropagation();
+        }
+      },
     };
   },
 };
@@ -395,22 +437,12 @@ export default {
   font-weight: 700;
   line-height: normal;
   color: #ffffff !important;
-  /* background: #26A69A; */
 }
 .verti-line {
   border: 2px solid #fafafa;
   background: var(--labels-primary, #fff);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
-/*
-.menu-list.q-item.q-item--active {
-  color: #004e89;
-  font-family: Nunito;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-} */
 
 .q-item {
   color: #000;
@@ -455,5 +487,9 @@ i.q-icon.notranslate.material-icons {
 .mild-shadow {
   box-shadow: 0 2px 4px rgb(0 0 0 / 12%), 0 0 6px rgb(0 0 0 / 4%);
   transition: box-shadow 0.4s;
+}
+.round-icon-name {
+  background-color: #004e89;
+  color: #ffffff;
 }
 </style>

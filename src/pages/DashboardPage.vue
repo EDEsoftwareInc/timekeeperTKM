@@ -7,69 +7,7 @@
     <div class="row items-center">
       <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-xs-12">
         <p class="weekly-sched q-ml-xl q-mb-sm">Time Log</p>
-        <!-- <div class="row justify-between items-center">
-          <div class="day-initials row">
-            <div
-              v-for="(initial, index) in reorderedInitials"
-              :key="index"
-              class="day-initial"
-              :class="{
-                'monday-color': index === 0,
-                'tuesday-color': index === 1,
-              }"
-            >
-              {{ initial }}
-            </div>
-          </div>
-        </div> -->
       </div>
-      <!-- <q-dialog v-model="showShed">
-        <q-card>
-          <q-card-section>
-            <span class="text-h5 shed-text">Schedule</span>
-            <div class="sched-desc">
-              Review upcoming work shifts that you are scheduled for over the
-              next 14 day.
-            </div>
-            <label class="date-label q-mt-md">October 01-07</label>
-            <q-card-actions
-              class="shed-card row"
-              v-for="(item, key) in attendanceApi"
-              :key="key"
-            >
-              <div class="day-date-shed q-mr-lg col-3">
-                <label class="text-overline text-weight-bold"
-                  >{{ item.date }} </label
-                ><br />
-                <label class="text-weight-medium">{{ item.day }}</label>
-              </div>
-
-              <div class="day-date-shed q-ml-lg col-3">
-                <label class="text-overline label-sched">In </label><br />
-                <label class="text-weight-medium"> {{ item.in }}</label>
-              </div>
-              <div class="day-date-shed q-ml-lg col-3">
-                <label class="text-overline label-sched">Out</label><br />
-                <label class="text-weight-medium"> {{ item.out }}</label>
-              </div>
-
-              <div class="day-date-shed q-ml-lg col-3">
-                <label class="text-overline label-sched">Total</label><br />
-                <label class="text-weight-medium"> 8 hours</label>
-              </div>
-            </q-card-actions>
-          </q-card-section>
-        </q-card>
-      </q-dialog> -->
-      <!-- <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
-        <q-btn
-          unelevated
-          class="btn-color-text q-px-md q-ml-xl"
-          rounded
-          label="Show Schedule"
-          @click="showShed = true"
-        />
-      </div> -->
     </div>
     <div class="row q-ml-xl q-mr-xl q-mt-sm">
       <div class="col-12">
@@ -145,159 +83,30 @@
                   :value="progress1"
                 />
               </div>
-              <!-- <q-linear-progress stripe size="10px" :value="progress1" />
-              <q-linear-progress stripe size="10px" :value="progress1" /> -->
             </div>
           </div>
         </q-card>
       </div>
     </div>
-    <!-- <div class="row marginLeftRightTop">
-      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
-        <div class="grey-card">
-          <q-icon size="xl">
-            <q-img src="../assets/time-outline.svg" />
-          </q-icon>
-          <div class="text-timerMargin">
-            <div class="text-timer">Latest Punch-Out</div>
-            <div class="timer">08h 00m 00s</div>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
-        <div class="grey-card">
-          <q-icon size="xl">
-            <q-img src="../assets/timer-outline.svg" />
-          </q-icon>
-          <div class="text-timerMargin">
-            <div class="text-timer">Total Time Session</div>
-            <div class="timer">48h 00m 00s</div>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
-        <div class="grey-card">
-          <q-icon size="xl">
-            <q-img src="../assets/Vector.svg" />
-          </q-icon>
-          <div class="text-timerMargin">
-            <div class="text-timer">PTO Balance</div>
-            <div class="timer">50h 00m 00s</div>
-          </div>
-        </div>
-      </div>
-    </div> -->
   </q-page>
   <q-page v-if="$q.screen.sm">
     <TodayComponentSM />
-    <!-- <div class="row items-center">
-      <div class="col-6">
-        <div class="q-mt-lg text-greeting q-ml-lg">{{ greeting }}</div>
-        <div class="name q-ml-lg">
-          {{ user.user.firstName }} {{ user.user.lastName }}
-        </div>
-      </div>
-      <div class="col-xl-8 col-lg-8 col-md-8"></div>
-      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-12">
-        <div class="dateNow row items-center q-mt-sm">
-          <q-icon
-            v-if="greeting === 'Good morning' || greeting === 'Good afternoon'"
-            class="text-dark q-ml-sm"
-            size="sm"
-          >
-            <img src="~assets/sun.svg" />
-          </q-icon>
-          <q-icon
-            v-if="greeting === 'Good evening'"
-            size="sm"
-            name="mdi-weather-night"
-          />
-          <div class="date-formatted q-ml-sm">
-            <span class="colored-day">{{ dayOfWeek }}</span
-            >, {{ formattedDate }}
-          </div>
-        </div>
-      </div>
-    </div> -->
     <div class="row justify-center q-mt-lg q-mb-xl">
       <Carousel />
     </div>
     <div class="row items-center add-marginTop">
       <div class="col-xl-9 col-lg-9 col-md-9 col-sm-8 col-xs-12">
         <p class="weekly-sched-tablet q-ml-xl q-mb-none">Time Log</p>
-        <!-- <div class="row justify-between items-center">
-          <div class="day-initials-tablet row">
-            <div
-              v-for="(initial, index) in reorderedInitials"
-              :key="index"
-              class="day-initial-tablet"
-              :class="{
-                'monday-color': index === 0,
-                'tuesday-color': index === 1,
-              }"
-            >
-              {{ initial }}
-            </div>
-          </div>
-        </div> -->
       </div>
-      <!-- <q-dialog v-model="showShed">
-        <q-card>
-          <q-card-section>
-            <span class="text-h5 shed-text">Schedule</span>
-            <div class="sched-desc">
-              Review upcoming work shifts that you are scheduled for over the
-              next 14 day.
-            </div>
-            <label class="date-label q-mt-md">October 01-07</label>
-            <q-card-actions
-              class="shed-card row"
-              v-for="(item, key) in attendanceApi"
-              :key="key"
-            >
-              <div class="day-date-shed q-mr-lg col-3">
-                <label class="text-overline text-weight-bold"
-                  >{{ item.date }} </label
-                ><br />
-                <label class="text-weight-medium">{{ item.day }}</label>
-              </div>
-
-              <div class="day-date-shed q-ml-lg col-3">
-                <label class="text-overline label-sched">In </label><br />
-                <label class="text-weight-medium"> {{ item.in }}</label>
-              </div>
-              <div class="day-date-shed q-ml-lg col-3">
-                <label class="text-overline label-sched">Out</label><br />
-                <label class="text-weight-medium"> {{ item.out }}</label>
-              </div>
-
-              <div class="day-date-shed q-ml-lg col-3">
-                <label class="text-overline label-sched">Total</label><br />
-                <label class="text-weight-medium"> 8 hours</label>
-              </div>
-            </q-card-actions>
-          </q-card-section>
-        </q-card>
-      </q-dialog> -->
-      <!-- <div
-        class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-12 d-flex justify-end"
-      >
-        <q-btn
-          unelevated
-          @click="showShed = true"
-          class="btn-color-text-tablet"
-          rounded
-          label="Show Schedule"
-        >
-        </q-btn>
-      </div> -->
     </div>
 
     <div class="row q-ml-lg q-mr-lg">
       <div class="col-12">
         <q-card class="row justify-between q-pb-lg">
           <div class="col-6">
-            <div class="text-center card-child-header q-mb-xl q-mt-xs">
+            <div
+              class="text-center text-subtitle1 card-child-header q-mb-xl q-mt-xs"
+            >
               Today
             </div>
             <div class="row justify-between q-ml-lg">
@@ -377,49 +186,11 @@
                   :value="progress1"
                 />
               </div>
-              <!-- <q-linear-progress stripe size="10px" :value="progress1" />
-              <q-linear-progress stripe size="10px" :value="progress1" /> -->
             </div>
           </div>
         </q-card>
       </div>
     </div>
-
-    <!-- <div class="row marginLeftRightTop">
-      <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-xs-12">
-        <div class="grey-card">
-          <q-icon size="xl">
-            <q-img src="../assets/time-outline.svg" />
-          </q-icon>
-          <div class="text-timerMargin">
-            <div class="text-timer">Latest Punch-Out</div>
-            <div class="timer">08h 00m 00s</div>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-xs-12">
-        <div class="grey-card">
-          <q-icon size="xl">
-            <q-img src="../assets/timer-outline.svg" />
-          </q-icon>
-          <div class="text-timerMargin">
-            <div class="text-timer">Total Time Session</div>
-            <div class="timer">48h 00m 00s</div>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-xs-12">
-        <div class="grey-card">
-          <q-icon size="xl">
-            <q-img src="../assets/Vector.svg" />
-          </q-icon>
-          <div class="text-timerMargin">
-            <div class="text-timer">PTO Balance</div>
-            <div class="timer">50h 00m 00s</div>
-          </div>
-        </div>
-      </div>
-    </div> -->
   </q-page>
 </template>
 
@@ -749,7 +520,7 @@ export default {
   color: #404040;
   text-align: center;
   font-family: Inter;
-  font-size: 24px;
+  font-size: 18px;
   font-style: normal;
   font-weight: 500;
   line-height: 24px; /* 100% */
