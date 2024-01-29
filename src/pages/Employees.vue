@@ -75,7 +75,7 @@
           <q-td :props="props">
             <q-chip
               :color="getChipColor(props.row.status)"
-              text-color="white"
+              :text-color="getTextColor(props.row.status)"
               label
             >
               {{ props.row.status }}
@@ -207,39 +207,145 @@ function addEmployee() {
 }
 function getChipColor(status) {
   switch (status) {
-    case "Full-Time":
-      return "yellow";
-    case "Part-Time":
+    case "Full-time":
       return "green";
-    case "On-Contract":
+    case "Part-time":
+      return "yellow";
+    case "Regular":
       return "blue";
     default:
       return "gray";
   }
 }
 
+function getTextColor(status) {
+  // Conditionally set text-color to black when the status is "Part-time"
+  return status === "Part-time" ? "black" : "white";
+}
+
 // emulate ajax call
 // SELECT * FROM ... WHERE...LIMIT...
-function fetchFromServer(startRow, count, filter, sortBy, descending) {
-  const data = filter
-    ? originalRows.filter((row) => row.profile.includes(filter))
-    : originalRows.slice();
-
-  // handle sortBy
-  if (sortBy) {
-    const sortFn =
-      sortBy === "desc"
-        ? descending
-          ? (a, b) => (a.name > b.name ? -1 : a.name < b.name ? 1 : 0)
-          : (a, b) => (a.name > b.name ? 1 : a.name < b.name ? -1 : 0)
-        : descending
-        ? (a, b) => parseFloat(b[sortBy]) - parseFloat(a[sortBy])
-        : (a, b) => parseFloat(a[sortBy]) - parseFloat(b[sortBy]);
-    data.sort(sortFn);
+async function fetchDataFromServer() {
+  try {
+    const response = await fetch("http://54.173.81.133:3001/api/v1/users");
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching data from the server:", error);
+    return [];
   }
-
-  return data.slice(startRow, startRow + count);
 }
+
+// Function to convert API response to match the format of originalRows
+function convertApiResponse(apiData) {
+  return apiData.map((user) => ({
+    id: user.employee_id.toString(),
+    profile: user.full_name,
+    status: user.status,
+    department: user.department,
+    shift: user.shift,
+    joining_date: user.joining_date,
+    role: user.role,
+    profilePicture: user.profile_picture,
+  }));
+}
+
+async function fetchAndUpdateDataFromServer(
+  startRow,
+  count,
+  filter,
+  sortBy,
+  descending
+) {
+  loading.value = true;
+
+  try {
+    // Fetch data from the server
+    const apiData = await fetchDataFromServer();
+
+    // Convert API response to match the format of originalRows
+    const convertedData = convertApiResponse(apiData);
+
+    // Apply filter if provided
+    const data = filter
+      ? convertedData.filter((row) =>
+          row.profile.toLowerCase().includes(filter.toLowerCase())
+        )
+      : convertedData.slice();
+
+    // Handle sorting
+    if (sortBy) {
+      const sortFn = (a, b) => {
+        const valueA =
+          typeof a[sortBy] === "string" ? a[sortBy].toLowerCase() : a[sortBy];
+        const valueB =
+          typeof b[sortBy] === "string" ? b[sortBy].toLowerCase() : b[sortBy];
+        return descending ? valueB - valueA : valueA - valueB;
+      };
+      data.sort(sortFn);
+    }
+
+    // Update local rows with the appropriate subset
+    rows.value.splice(
+      0,
+      rows.value.length,
+      ...data.slice(startRow, startRow + count)
+    );
+
+    // Update pagination information
+    pagination.value.rowsNumber = data.length;
+    pagination.value.page = 1;
+    pagination.value.rowsPerPage = count;
+    pagination.value.sortBy = sortBy;
+    pagination.value.descending = descending;
+  } catch (error) {
+    console.error("Error updating data from the server:", error);
+  } finally {
+    loading.value = false;
+  }
+}
+
+// Function to fetch data from the server and update the local rows
+// async function fetchAndUpdateDataFromServer(startRow, count, filter, sortBy, descending) {
+//   loading.value = true;
+
+//   try {
+//     // Fetch data from the server
+//     const apiData = await fetchDataFromServer();
+
+//     // Convert API response to match the format of originalRows
+//     const convertedData = convertApiResponse(apiData);
+
+//     // Apply filter if provided
+//     const data = filter
+//       ? convertedData.filter((row) => row.profile.toLowerCase().includes(filter.toLowerCase()))
+//       : convertedData.slice();
+
+//     // Handle sorting
+//     if (sortBy) {
+//       const sortFn = (a, b) => {
+//         const valueA = typeof a[sortBy] === 'string' ? a[sortBy].toLowerCase() : a[sortBy];
+//         const valueB = typeof b[sortBy] === 'string' ? b[sortBy].toLowerCase() : b[sortBy];
+//         return descending ? valueB - valueA : valueA - valueB;
+//       };
+//       data.sort(sortFn);
+//     }
+
+//     // Update local rows with the appropriate subset
+//     rows.value.splice(0, rows.value.length, ...data.slice(startRow, startRow + count));
+
+//     // Update pagination information
+//     pagination.value.rowsNumber = data.length;
+//     pagination.value.page = 1;
+//     pagination.value.rowsPerPage = count;
+//     pagination.value.sortBy = sortBy;
+//     pagination.value.descending = descending;
+//   } catch (error) {
+//     console.error('Error updating data from the server:', error);
+//   } finally {
+//     loading.value = false;
+//   }
+// }
 
 // emulate 'SELECT count(*) FROM ...WHERE...'
 function getRowsNumberCount(filter) {
@@ -255,49 +361,64 @@ function getRowsNumberCount(filter) {
   return count;
 }
 
+// function onRequest(props) {
+//   const { page, rowsPerPage, sortBy, descending } = props.pagination;
+//   const filter = props.filter;
+
+//   loading.value = true;
+
+//   // emulate server
+//   setTimeout(() => {
+//     // update rowsCount with the appropriate value
+//     pagination.value.rowsNumber = getRowsNumberCount(filter);
+
+//     // get all rows if "All" (0) is selected
+//     const fetchCount =
+//       rowsPerPage === 0 ? pagination.value.rowsNumber : rowsPerPage;
+
+//     // calculate the starting row of data
+//     const startRow = (page - 1) * rowsPerPage;
+
+//     // fetch data from "server"
+//     const returnedData = fetchFromServer(
+//       startRow,
+//       fetchCount,
+//       filter,
+//       sortBy,
+//       descending
+//     );
+
+//     // clear out existing data and add new
+//     rows.value.splice(0, rows.value.length, ...returnedData);
+
+//     // don't forget to update the local pagination object
+//     pagination.value.page = page;
+//     pagination.value.rowsPerPage = rowsPerPage;
+//     pagination.value.sortBy = sortBy;
+//     pagination.value.descending = descending;
+
+//     // ...and turn off the loading indicator
+//     loading.value = false;
+//   }, 1500);
+// }
+
 function onRequest(props) {
   const { page, rowsPerPage, sortBy, descending } = props.pagination;
   const filter = props.filter;
 
-  loading.value = true;
-
-  // emulate server
-  setTimeout(() => {
-    // update rowsCount with the appropriate value
-    pagination.value.rowsNumber = getRowsNumberCount(filter);
-
-    // get all rows if "All" (0) is selected
-    const fetchCount =
-      rowsPerPage === 0 ? pagination.value.rowsNumber : rowsPerPage;
-
-    // calculate the starting row of data
-    const startRow = (page - 1) * rowsPerPage;
-
-    // fetch data from "server"
-    const returnedData = fetchFromServer(
-      startRow,
-      fetchCount,
-      filter,
-      sortBy,
-      descending
-    );
-
-    // clear out existing data and add new
-    rows.value.splice(0, rows.value.length, ...returnedData);
-
-    // don't forget to update the local pagination object
-    pagination.value.page = page;
-    pagination.value.rowsPerPage = rowsPerPage;
-    pagination.value.sortBy = sortBy;
-    pagination.value.descending = descending;
-
-    // ...and turn off the loading indicator
-    loading.value = false;
-  }, 1500);
+  // Fetch and update data from the server
+  fetchAndUpdateDataFromServer(
+    (page - 1) * rowsPerPage,
+    rowsPerPage,
+    filter,
+    sortBy,
+    descending
+  );
 }
 
-onMounted(() => {
+onMounted(async () => {
   // get initial data from the server (1st page)
+  await fetchAndUpdateDataFromServer(0, 10, "", "", false);
   tableRef.value.requestServerInteraction();
 });
 </script>
