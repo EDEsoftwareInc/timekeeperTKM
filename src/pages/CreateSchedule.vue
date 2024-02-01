@@ -28,7 +28,7 @@
             </div>
             <NavigationBar @today="onToday" @prev="onPrev" @next="onNext" />
           </div>
-          <div class="row justify-around">
+          <div class="row justify-around items-center">
             <QCalendarMonth
               style="width: 100% !important; max-width: 600px !important"
               ref="calendarRef"
@@ -46,97 +46,115 @@
             />
             <div>
               <div>
-                <div class="punch-text">Punch In Time</div>
-                <div class="time-picker-spinner">
-                  <div class="row column items-center">
-                    <span @click="incrementHours"
-                      ><q-icon class="text-h4" name="mdi-chevron-up"
-                    /></span>
-                    <input
-                      type="text"
-                      v-model="hours"
-                      @input="updateTime"
-                      placeholder="HH"
-                      maxlength="2"
-                    />
-                    <span @click="decrementHours"
-                      ><q-icon class="text-h4" name="mdi-chevron-down"
-                    /></span>
-                  </div>
-                  <span class="q-mr-lg q-ml-lg">:</span>
-                  <div class="row column items-center">
-                    <span @click="incrementMinutes"
-                      ><q-icon class="text-h4" name="mdi-chevron-up"
-                    /></span>
-                    <input
-                      type="text"
-                      v-model="minutes"
-                      @input="updateTime"
-                      placeholder="MM"
-                      maxlength="2"
-                    />
-                    <span @click="decrementMinutes"
-                      ><q-icon class="text-h4" name="mdi-chevron-down"
-                    /></span>
-                  </div>
-                  <div>
-                    <q-select
-                      class="no-icon"
-                      v-model="period"
-                      :options="periodOptions"
-                      emit-value
-                      map-options
-                      use-input
-                      style="width: 100%; max-width: 40px"
-                    />
-                  </div>
+                <div class="punch-text q-mb-lg">Punch In Time</div>
+                <div class="row">
+                  <q-card class="time-picker-spinner">
+                    <div class="row column items-center">
+                      <span @click="incrementHours"
+                        ><q-icon class="text-h4" name="mdi-chevron-up"
+                      /></span>
+                      <input
+                        type="text"
+                        v-model="hours"
+                        @input="updateTime"
+                        placeholder="HH"
+                        maxlength="2"
+                        style="border: 0"
+                      />
+                      <span @click="decrementHours"
+                        ><q-icon class="text-h4" name="mdi-chevron-down"
+                      /></span>
+                    </div>
+                    <span class="q-mr-lg q-ml-lg">:</span>
+                    <div class="row column items-center">
+                      <span @click="incrementMinutes"
+                        ><q-icon class="text-h4" name="mdi-chevron-up"
+                      /></span>
+                      <input
+                        type="text"
+                        v-model="minutes"
+                        @input="updateTime"
+                        placeholder="MM"
+                        maxlength="2"
+                        style="border: 0"
+                      />
+                      <span @click="decrementMinutes"
+                        ><q-icon class="text-h4" name="mdi-chevron-down"
+                      /></span>
+                    </div>
+                    <div class="q-ma-md row">
+                      <q-select
+                        class="no-icon"
+                        v-model="period"
+                        :options="periodOptions"
+                      />
+                    </div>
+                  </q-card>
+                  <q-btn
+                    text-color="white"
+                    style="
+                      background-color: #004e89;
+                      border-radius: 12px !important;
+                    "
+                    label="Set"
+                    class="q-ml-sm"
+                  />
                 </div>
               </div>
-              <div>
-                <div class="punch-text">Punch Out Time</div>
-                <div class="time-picker-spinner">
-                  <div class="row column items-center">
-                    <span @click="incrementHours"
-                      ><q-icon class="text-h4" name="mdi-chevron-up"
-                    /></span>
-                    <input
-                      type="text"
-                      v-model="hours"
-                      @input="updateTime"
-                      placeholder="HH"
-                      maxlength="2"
-                    />
-                    <span @click="decrementHours"
-                      ><q-icon class="text-h4" name="mdi-chevron-down"
-                    /></span>
-                  </div>
-                  <span class="q-mr-lg q-ml-lg">:</span>
-                  <div class="row column items-center">
-                    <span @click="incrementMinutes"
-                      ><q-icon class="text-h4" name="mdi-chevron-up"
-                    /></span>
-                    <input
-                      type="text"
-                      v-model="minutes"
-                      @input="updateTime"
-                      placeholder="MM"
-                      maxlength="2"
-                    />
-                    <span @click="decrementMinutes"
-                      ><q-icon class="text-h4" name="mdi-chevron-down"
-                    /></span>
-                  </div>
-                  <div>
-                    <q-select
-                      class="no-icon"
-                      v-model="period"
-                      :options="periodOptions"
-                      emit-value
-                      map-options
-                      use-input
-                      style="width: 100%; max-width: 40px"
-                    />
-                  </div>
+              <div class="q-mt-lg">
+                <div class="punch-text q-mb-lg">Punch Out Time</div>
+                <div class="row">
+                  <q-card class="time-picker-spinner">
+                    <div class="row column items-center">
+                      <span @click="incrementHours"
+                        ><q-icon class="text-h4" name="mdi-chevron-up"
+                      /></span>
+                      <input
+                        type="text"
+                        v-model="hours"
+                        @input="updateTime"
+                        placeholder="HH"
+                        maxlength="2"
+                        style="border: 0"
+                      />
+                      <span @click="decrementHours"
+                        ><q-icon class="text-h4" name="mdi-chevron-down"
+                      /></span>
+                    </div>
+                    <span class="q-mr-lg q-ml-lg">:</span>
+                    <div class="row column items-center">
+                      <span @click="incrementMinutes"
+                        ><q-icon class="text-h4" name="mdi-chevron-up"
+                      /></span>
+                      <input
+                        type="text"
+                        v-model="minutes"
+                        @input="updateTime"
+                        placeholder="MM"
+                        maxlength="2"
+                        style="border: 0"
+                      />
+                      <span @click="decrementMinutes"
+                        ><q-icon class="text-h4" name="mdi-chevron-down"
+                      /></span>
+                    </div>
+                    <div class="q-ma-md row">
+                      <q-select
+                        class="no-icon"
+                        v-model="period"
+                        :options="periodOptions"
+                      />
+                    </div>
+                  </q-card>
+                  <q-btn
+                    text-color="white"
+                    style="
+                      background-color: #004e89;
+                      border-radius: 12px !important;
+                    "
+                    label="Set"
+                    class="q-ml-sm"
+                  />
                 </div>
               </div>
             </div>
@@ -325,6 +343,7 @@ export default {
   line-height: normal;
 }
 .time-picker-spinner {
+  padding: 10px;
   display: flex;
   align-items: center;
 }
