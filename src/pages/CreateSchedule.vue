@@ -159,6 +159,14 @@
               </div>
             </div>
           </div>
+          <div>
+            <q-btn
+              class="q-ml-lg"
+              text-color="white"
+              style="background-color: #004e89"
+              label="submit"
+            />
+          </div>
         </q-card>
       </div>
     </div>
