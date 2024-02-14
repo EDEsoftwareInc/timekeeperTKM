@@ -39,6 +39,14 @@ const routes = [
         path: "admin",
         component: () => import("src/pages/Admin.vue"),
       },
+      {
+        path: "sched",
+        component: () => import("src/pages/SchedulePageTable.vue"),
+      },
+      {
+        path: "assign-schedule",
+        component: () => import("src/pages/AssignSchedulePage.vue"),
+      },
     ],
     meta: { requiresAuth: true },
   },
