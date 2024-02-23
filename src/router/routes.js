@@ -21,7 +21,7 @@ const routes = [
       },
       {
         path: "create-sched",
-        component: () => import("src/pages/CreateSchedule.vue"),
+        component: () => import("src/pages/SchedulePageTable.vue"),
       },
       {
         path: "my-team",

@@ -118,222 +118,69 @@
     >
       <q-scroll-area class="fit verti-line">
         <q-list style="display: flex; flex-direction: column">
-          <!-- <q-btn
-            @click="drawer = !drawer"
-            style="color: #094267; margin-right: -98%"
-          >
-            <q-icon name="menu" style="font-size: 30px"></q-icon>
-          </q-btn> -->
-          <router-link style="text-decoration: none" to="/dashboard">
-            <q-item
-              clickable
-              v-ripple
-              :active="link === 'dashboard'"
-              @click="link = 'dashboard'"
-              active-class="my-menu-link"
-            >
-              <q-item-section avatar>
-                <q-icon class="material-symbols-outlined" size="lg">
-                  <q-img
-                    v-if="link === 'dashboard'"
-                    src="../assets/bar-chart-outline-white.svg"
-                  />
-                  <q-img v-else src="../assets/bar-chart-outline.svg" />
-                </q-icon>
-              </q-item-section>
-              <q-item-section class="text-font"> Dashboard </q-item-section>
-            </q-item>
-          </router-link>
-
-          <router-link style="text-decoration: none" to="/">
-            <q-item
-              clickable
-              v-ripple
-              :active="link === 'pay'"
-              @click="link = 'pay'"
-              active-class="my-menu-link"
-            >
-              <q-item-section avatar>
-                <q-icon class="material-symbols-outlined" size="lg">
-                  <q-img
-                    v-if="link === 'pay'"
-                    src="../assets/card-outline-white.svg"
-                  />
-                  <q-img v-else src="../assets/card-outline.svg" />
-                </q-icon>
-              </q-item-section>
-              <q-item-section class="text-font"> Pay </q-item-section>
-            </q-item>
-          </router-link>
-          <q-item
-            clickable
-            v-ripple
-            :active="link === 'time'"
-            @click="link = 'time'"
-            active-class="my-menu-link"
-          >
-            <q-item-section avatar @click="toggleSubList">
-              <q-icon class="material-symbols-outlined" size="lg">
-                <q-img
-                  v-if="link === 'time'"
-                  src="../assets/time-outline-white.svg"
-                />
-                <q-img v-else src="../assets/time-outline.svg" />
-              </q-icon>
-            </q-item-section>
-            <q-item-section class="text-font" @click="toggleSubList">
-              Time Management
-            </q-item-section>
-          </q-item>
-          <q-list v-if="showSubList" padding>
-            <q-item
-              clickable
-              v-ripple
-              to="/punch-in-out"
-              :active="link === 'punch-in-out'"
-              @click="link = 'punch-in-out'"
-              active-class="my-menu-link"
-            >
-              <q-item-section class="q-ml-md" avatar>
-                <q-icon class="text-dark" size="md"> </q-icon>
-              </q-item-section>
-              <q-item-section> Punch In/Out</q-item-section>
-            </q-item>
-            <q-item
-              clickable
-              v-ripple
-              to="/schedule"
-              :active="link === 'schedule'"
-              @click="link = 'schedule'"
-              active-class="my-menu-link"
-            >
-              <q-item-section class="q-ml-md" avatar>
-                <q-icon class="text-dark" size="md"> </q-icon>
-              </q-item-section>
-              <q-item-section> Schedule </q-item-section>
-            </q-item>
-            <q-item
-              clickable
-              v-ripple
-              to="/create-sched"
-              :active="link === 'create-sched'"
-              @click="link = 'create-sched'"
-              active-class="my-menu-link"
-            >
-              <q-item-section class="q-ml-md" avatar>
-                <q-icon class="text-dark" size="md"> </q-icon>
-              </q-item-section>
-              <q-item-section> Create Schedule </q-item-section>
-            </q-item>
-          </q-list>
-
-          <router-link style="text-decoration: none" to="/">
-            <q-item
-              clickable
-              v-ripple
-              :active="link === 'employee'"
-              @click="link = 'employee'"
-              active-class="my-menu-link"
-            >
-              <q-item-section avatar @click="toggleSubListEmployee">
-                <q-icon class="material-symbols-outlined" size="lg">
-                  <q-img
-                    v-if="link === 'employee'"
-                    src="../assets/icon_group-white.svg"
-                  />
-                  <q-img v-else src="../assets/icon_group.svg" />
-                </q-icon>
-              </q-item-section>
-
-              <q-item-section class="text-font" @click="toggleSubListEmployee">
-                Employee
-              </q-item-section>
-            </q-item>
-            <q-list v-if="showSubListEmp" padding>
-              <q-item
-                clickable
-                v-ripple
-                to="/my-team"
-                :active="link === 'my-team'"
-                @click="link = 'my-team'"
-                active-class="my-menu-link"
+          <template v-for="item in user.role_features">
+            <template v-if="!item.sublists">
+              <router-link
+                :to="item.route"
+                style="text-decoration: none"
+                :key="item.name"
               >
-                <q-item-section class="q-ml-md" avatar>
-                  <q-icon class="text-dark" size="md"> </q-icon>
-                </q-item-section>
-                <q-item-section> My Team</q-item-section>
-              </q-item>
-              <q-item
-                clickable
-                v-ripple
-                to="/all-employees"
-                :active="link === 'all-employee'"
-                @click="link = 'all-employee'"
-                active-class="my-menu-link"
-              >
-                <q-item-section class="q-ml-md" avatar>
-                  <q-icon class="text-dark" size="md"> </q-icon>
-                </q-item-section>
-                <q-item-section> All Employee </q-item-section>
-              </q-item>
-
-              <q-item
-                clickable
-                v-ripple
-                to="/org-chart"
-                :active="link === 'org-chart'"
-                @click="link = 'org-chart'"
-                active-class="my-menu-link"
-              >
-                <q-item-section class="q-ml-md" avatar>
-                  <q-icon class="text-dark" size="md"> </q-icon>
-                </q-item-section>
-                <q-item-section> Org Chart</q-item-section>
-              </q-item>
-            </q-list>
-          </router-link>
-          <router-link style="text-decoration: none" to="/task-arranger">
-            <q-item
-              clickable
-              v-ripple
-              :active="link === 'task-arranger'"
-              @click="link = 'task-arranger'"
-              active-class="my-menu-link"
-            >
-              <q-item-section avatar>
-                <q-icon class="material-symbols-outlined" size="lg">
-                  <q-img
-                    v-if="link === 'task-arranger'"
-                    src="../assets/icon_tasklis-white.svg"
-                  />
-                  <q-img v-else src="../assets/icon_tasklist.svg" />
-                </q-icon>
-              </q-item-section>
-
-              <q-item-section class="text-font"> Task Arranger </q-item-section>
-            </q-item>
-          </router-link>
-          <router-link style="text-decoration: none" to="/admin">
-            <q-item
-              clickable
-              :active="link === 'admin'"
-              @click="link = 'admin'"
-              active-class="my-menu-link"
-            >
-              <q-item-section avatar>
-                <q-icon class="material-symbols-outlined" size="lg">
-                  <q-img
-                    v-if="link === 'admin'"
-                    src="../assets/icon_settings-white.svg"
-                  />
-                  <q-img v-else src="../assets/icon_settings.svg" />
-                </q-icon>
-              </q-item-section>
-
-              <q-item-section class="text-font"> Admin </q-item-section>
-            </q-item>
-          </router-link>
+                <q-item
+                  clickable
+                  v-ripple
+                  :active="link === item.name.toLowerCase()"
+                  @click="link = item.name.toLowerCase()"
+                  active-class="my-menu-link"
+                >
+                  <q-item-section avatar>
+                    <q-icon class="material-symbols-outlined" size="lg">
+                      <!-- <q-img
+                        v-if="link === item.name.toLowerCase()"
+                        :src="item.icon"
+                      /> -->
+                      <!-- <q-img :src="item.icon" /> -->
+                    </q-icon>
+                  </q-item-section>
+                  <q-item-section class="text-font">
+                    {{ item.name }}
+                  </q-item-section>
+                </q-item>
+              </router-link>
+            </template>
+            <template v-else>
+              <q-expansion-item :key="item.name" :label="item.name">
+                <template v-for="subItem in item.sublists" :key="subItem.name">
+                  <router-link
+                    :to="subItem.route"
+                    style="text-decoration: none"
+                  >
+                    <q-item
+                      clickable
+                      v-ripple
+                      :active="link === subItem.name.toLowerCase()"
+                      @click="link = subItem.name.toLowerCase()"
+                      active-class="my-menu-link"
+                    >
+                      <q-item-section avatar>
+                        <q-icon class="material-symbols-outlined" size="lg">
+                          <!-- <q-img
+                            v-if="link === subItem.name.toLowerCase()"
+                            :src="getIcon(subItem)"
+                          />
+                          <q-img v-else :src="subItem.icon" /> -->
+                        </q-icon>
+                      </q-item-section>
+                      <q-item-section class="text-font">
+                        {{ subItem.name }}
+                      </q-item-section>
+                    </q-item>
+                  </router-link>
+                </template>
+              </q-expansion-item>
+            </template>
+          </template>
         </q-list>
+
         <q-img src="../assets/dashboad-buttom-logo.png" class="drawer-logo" />
       </q-scroll-area>
       <div class="q-mini-drawer-hide absolute" style="top: 15px; right: -17px">
@@ -389,7 +236,6 @@ export default {
       window.location.reload();
     }
     const toggleSubList = () => {
-      console.log("TESTS");
       showSubList.value = !showSubList.value;
     };
 
