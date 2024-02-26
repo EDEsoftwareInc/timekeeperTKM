@@ -109,7 +109,7 @@
     <q-drawer
       v-model="drawer"
       show-if-above
-      :width="200"
+      :width="250"
       :breakpoint="500"
       :mini="!drawer || miniState"
       @click.capture="drawerClick"
@@ -138,7 +138,7 @@
                         v-if="link === item.name.toLowerCase()"
                         :src="item.icon"
                       /> -->
-                      <!-- <q-img :src="item.icon" /> -->
+                      <q-img :src="item.icon" />
                     </q-icon>
                   </q-item-section>
                   <q-item-section class="text-font">
@@ -148,9 +148,38 @@
               </router-link>
             </template>
             <template v-else>
-              <q-expansion-item :key="item.name" :label="item.name">
-                <template v-for="subItem in item.sublists" :key="subItem.name">
+              <div :key="item.name">
+                <!-- Main item -->
+                <q-item
+                  clickable
+                  v-ripple
+                  @click="toggleMenu"
+                  active-class="my-menu-link"
+                >
+                  <q-item-section avatar>
+                    <q-icon class="material-symbols-outlined" size="lg">
+                      <!-- <q-img
+                        v-if="link === item.name.toLowerCase()"
+                        :src="item.icon"
+                      /> -->
+                      <q-img :src="item.icon" />
+                    </q-icon>
+                  </q-item-section>
+                  <q-item-section class="text-font">
+                    {{ item.name }}
+                  </q-item-section>
+                  <q-item-section side>
+                    <q-icon
+                      :name="menuOpen ? 'arrow_drop_up' : 'arrow_drop_down'"
+                    ></q-icon>
+                  </q-item-section>
+                </q-item>
+
+                <!-- Submenu -->
+                <div v-if="menuOpen">
                   <router-link
+                    v-for="subItem in item.sublists"
+                    :key="subItem.name"
                     :to="subItem.route"
                     style="text-decoration: none"
                   >
@@ -161,22 +190,14 @@
                       @click="link = subItem.name.toLowerCase()"
                       active-class="my-menu-link"
                     >
-                      <q-item-section avatar>
-                        <q-icon class="material-symbols-outlined" size="lg">
-                          <!-- <q-img
-                            v-if="link === subItem.name.toLowerCase()"
-                            :src="getIcon(subItem)"
-                          />
-                          <q-img v-else :src="subItem.icon" /> -->
-                        </q-icon>
-                      </q-item-section>
+                      <q-item-section avatar> </q-item-section>
                       <q-item-section class="text-font">
                         {{ subItem.name }}
                       </q-item-section>
                     </q-item>
                   </router-link>
-                </template>
-              </q-expansion-item>
+                </div>
+              </div>
             </template>
           </template>
         </q-list>
@@ -203,9 +224,9 @@
 <script>
 import { ref, computed, onMounted, getCurrentInstance } from "vue";
 import { useQuasar } from "quasar";
-
 export default {
   setup() {
+    const menuOpen = ref(false);
     const $q = useQuasar();
     const miniState = ref(false);
     const showSubList = ref(false);
@@ -230,6 +251,9 @@ export default {
         console.error("Error", error);
       }
     }
+    function toggleMenu() {
+      menuOpen.value = !menuOpen.value;
+    }
 
     function logout() {
       $q.localStorage.remove("user");
@@ -246,6 +270,7 @@ export default {
       getuserDashboard();
     });
     return {
+      toggleMenu,
       drawer: ref($q.screen.sm ? false : true),
       user,
       logout,
@@ -257,6 +282,7 @@ export default {
       toggleSubListEmployee,
       showSubListEmp,
       miniState,
+      menuOpen,
 
       drawerClick(e) {
         // if in "mini" state and user
