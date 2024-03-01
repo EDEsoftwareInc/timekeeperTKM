@@ -118,7 +118,7 @@
     >
       <q-scroll-area class="fit verti-line">
         <q-list style="display: flex; flex-direction: column">
-          <template v-for="item in user.role_features">
+          <template v-for="(item, index) in user.role_features">
             <template v-if="!item.sublists">
               <router-link
                 :to="item.route"
@@ -130,7 +130,7 @@
                   v-ripple
                   :active="link === item.name.toLowerCase()"
                   @click="link = item.name.toLowerCase()"
-                  active-class="my-menu-link"
+                  :class="{ 'my-menu-link': link === item.name.toLowerCase() }"
                 >
                   <q-item-section avatar>
                     <q-icon class="material-symbols-outlined" size="lg">
@@ -153,8 +153,8 @@
                 <q-item
                   clickable
                   v-ripple
-                  @click="toggleMenu"
-                  active-class="my-menu-link"
+                  @click="toggleMenu(index)"
+                  :class="{ 'my-menu-link': menuOpen[index] }"
                 >
                   <q-item-section avatar>
                     <q-icon class="material-symbols-outlined" size="lg">
@@ -170,13 +170,15 @@
                   </q-item-section>
                   <q-item-section side>
                     <q-icon
-                      :name="menuOpen ? 'arrow_drop_up' : 'arrow_drop_down'"
+                      :name="
+                        menuOpen[index] ? 'arrow_drop_up' : 'arrow_drop_down'
+                      "
                     ></q-icon>
                   </q-item-section>
                 </q-item>
 
                 <!-- Submenu -->
-                <div v-if="menuOpen">
+                <div v-if="menuOpen[index]">
                   <router-link
                     v-for="subItem in item.sublists"
                     :key="subItem.name"
@@ -226,7 +228,6 @@ import { ref, computed, onMounted, getCurrentInstance } from "vue";
 import { useQuasar } from "quasar";
 export default {
   setup() {
-    const menuOpen = ref(false);
     const $q = useQuasar();
     const miniState = ref(false);
     const showSubList = ref(false);
@@ -237,6 +238,7 @@ export default {
     const user = computed(() => {
       return $q.localStorage.getItem("user");
     });
+    const menuOpen = ref(Array(user.value.role_features.length).fill(false));
     console.log("USER main", user);
     async function getuserDashboard() {
       const config = {
@@ -251,9 +253,9 @@ export default {
         console.error("Error", error);
       }
     }
-    function toggleMenu() {
-      menuOpen.value = !menuOpen.value;
-    }
+    const toggleMenu = (index) => {
+      menuOpen.value[index] = !menuOpen.value[index];
+    };
 
     function logout() {
       $q.localStorage.remove("user");
